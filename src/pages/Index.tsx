@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden">
       <Navigation />
       
       {/* Background Slideshow - Full Screen */}

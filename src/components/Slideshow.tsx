@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react';
 
 const Slideshow = () => {
   const images = [
-    'ludziezwierzeta/kon3.png',
-    'ludziezwierzeta/kon4.png',
-    'ludziezwierzeta/kon9.png',
     'zwierzeta/bulldog.jpeg',
     'zwierzeta/kon1.png',
     'zwierzeta/kon2.png',
