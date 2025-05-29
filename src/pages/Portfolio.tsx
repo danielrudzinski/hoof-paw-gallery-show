@@ -2,29 +2,58 @@ import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 
 const Portfolio = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState({ people: 0, animals: 0 });
+  const [currentImageIndex, setCurrentImageIndex] = useState({ 
+    people: 0, 
+    horses: 0, 
+    equestrian: 0, 
+    pets: 0 
+  });
 
   const portfolioCategories = [
     {
       id: 'people',
       title: 'Ludzie',
-      route: '/portfolio/ludzie', // przyszła podstrona
+      route: '/portfolio/ludzie',
       images: [
-        'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&q=80',
-        'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-        'https://images.unsplash.com/photo-1494790108755-2616c4d3a9f0?w=800&q=80',
+        'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=1200&q=80',
+        'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80',
+        'https://images.unsplash.com/photo-1494790108755-2616c4d3a9f0?w=1200&q=80',
       ]
     },
     {
-      id: 'animals',
-      title: 'Zwierzęta',
-      route: '/portfolio/zwierzeta', // przyszła podstrona
+      id: 'horses',
+      title: 'Konie',
+      route: '/portfolio/konie',
       images: [
-        'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=800&q=80',
-        'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=800&q=80',
-        'https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=800&q=80',
-        'https://images.unsplash.com/photo-1439886183900-e79ec0057170?w=800&q=80',
+        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=80',
+        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1200&q=80',
+        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&q=80',
+        'https://images.unsplash.com/photo-1574231164645-d6f0e8553590?w=1200&q=80',
+      ]
+    },
+    {
+      id: 'equestrian',
+      title: 'Jeździectwo',
+      route: '/portfolio/jezdziectwo',
+      images: [
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&q=80',
+        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=1200&q=80',
+        'https://images.unsplash.com/photo-1580110465896-cc08c0aeb6af?w=1200&q=80',
+        'https://images.unsplash.com/photo-1548504090-56d7dd5b02f3?w=1200&q=80',
+      ]
+    },
+    {
+      id: 'pets',
+      title: 'Psy i Koty',
+      route: '/portfolio/psy-koty',
+      images: [
+        'https://images.unsplash.com/photo-1552053831-71594a27632d?w=1200&q=80',
+        'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=1200&q=80',
+        'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1200&q=80',
+        'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=1200&q=80',
+        'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=1200&q=80',
+        'https://images.unsplash.com/photo-1517849845537-4d257902454a?w=1200&q=80',
       ]
     }
   ];
@@ -34,7 +63,9 @@ const Portfolio = () => {
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => ({
         people: (prev.people + 1) % portfolioCategories[0].images.length,
-        animals: (prev.animals + 1) % portfolioCategories[1].images.length,
+        horses: (prev.horses + 1) % portfolioCategories[1].images.length,
+        equestrian: (prev.equestrian + 1) % portfolioCategories[2].images.length,
+        pets: (prev.pets + 1) % portfolioCategories[3].images.length,
       }));
     }, 3000); // zmiana co 3 sekundy
 
@@ -64,12 +95,12 @@ const Portfolio = () => {
           </div>
 
           {/* Kafelki z slideshow */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="flex flex-col gap-8 max-w-4xl mx-auto">
             {portfolioCategories.map((category, index) => (
               <div
                 key={category.id}
                 onClick={() => handleCategoryClick(category.route)}
-                className="group relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 animate-fade-in h-96"
+                className="group relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 animate-fade-in h-64 w-full"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Slideshow images */}
