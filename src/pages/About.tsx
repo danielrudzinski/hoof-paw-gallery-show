@@ -21,7 +21,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div className="animate-fade-in">
               <img
-                src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&q=80"
+                src="zdjeciezaparatem.jpg"
                 alt="Fotograf z aparatem"
                 className="w-full h-96 object-cover rounded-2xl shadow-lg"
               />

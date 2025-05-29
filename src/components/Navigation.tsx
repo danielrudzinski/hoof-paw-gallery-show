@@ -45,7 +45,7 @@ const Navigation = () => {
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
           <Link to="/" className={logoStyle}>
-            Hoof & Paw
+            Wiktoria Putz
           </Link>
 
           {/* Desktop Navigation */}
