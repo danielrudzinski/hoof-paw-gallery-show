@@ -30,7 +30,7 @@ const AppContent = () => {
           <Route path="/portfolio/konie-jezdziectwo" element={<PortfolioKonie />} />
           <Route path="/portfolio/ludzie" element={<PortfolioLudzie />} />
           <Route path="/cennik" element={<Pricing />} />
-          <Route path="/oferta" element={<Services />} />
+          <Route path="/kontakt" element={<Services />} />
           <Route path="/o-mnie" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
