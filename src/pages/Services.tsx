@@ -3,7 +3,7 @@ import { Phone, Instagram, Facebook, Camera, Heart } from 'lucide-react';
 
 const Contact = () => {
   const contactMethods = [
-    {
+      {
       icon: <Phone className="h-12 w-12" />,
       title: 'Telefon',
       description: 'Zadzwoń lub napisz SMS, aby umówić sesję lub zadać pytania.',
@@ -116,12 +116,9 @@ const Contact = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <a
-                href="tel:696919545"
-                className="bg-white text-gray-900 px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-100 transition-colors duration-200 transform hover:scale-105"
-              >
-                Zadzwoń teraz
-              </a>
+              
+                
+              
               <a
                 href="https://www.instagram.com/hoofandpawphoto/"
                 target="_blank"
