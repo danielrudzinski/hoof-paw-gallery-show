@@ -3,13 +3,28 @@ import { useState, useEffect } from 'react';
 
 const Slideshow = () => {
   const images = [
-    'zwierzeta/bulldog.jpeg',
-    'zwierzeta/kon1.png',
-    'zwierzeta/kon2.png',
-    'zwierzeta/kon5.png',
-    'zwierzeta/kon6.png',
-    'zwierzeta/kon7.png',
-    'zwierzeta/dog.png',
+    'psy/bulldog.jpeg',
+    'koty/kot1.png',
+    'konie/kon1.png',
+    'konie/kon2.png',
+    'konie/kon5.png',
+    'konie/kon6.png',
+    'konie/kon7.png',
+    'psy/dog.png',
+    'psy/dog2.jpg',
+    'psy/dog3.jpg',
+    'psy/dog4.jpeg',
+    'psy/dog5.png',
+    'jezdziectwo/jazda1.jpg',
+    'jezdziectwo/jazda2.jpg',
+    'jezdziectwo/jazda3.png',
+    'jezdziectwo/jazda4.jpg',
+    'jezdziectwo/jazda5.png',
+    'jezdziectwo/jazda6.jpg',
+    'jezdziectwo/jazda7.jpg',
+    'jezdziectwo/jazda8.jpg',
+    'jezdziectwo/jazda9.jpg',
+    'jezdziectwo/jazda10.jpg',
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

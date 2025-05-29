@@ -19,10 +19,10 @@ const Footer = () => {
               Profesjonalny fotograf w Bydgoszczy specjalizujący się w fotografii ludzi i zwierząt.
             </p>
             <div className="flex space-x-3">
-              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=100064821888953&locale=pl_PL" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                 <Facebook className="h-4 w-4" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/hoofandpawphoto/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                 <Instagram className="h-4 w-4" />
               </a>
             </div>
@@ -48,7 +48,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/oferta" className="text-gray-300 hover:text-white transition-colors">
+                <Link to="/kontakt" className="text-gray-300 hover:text-white transition-colors">
                   Kontakt
                 </Link>
               </li>
@@ -76,14 +76,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="h-3 w-3 mr-2 flex-shrink-0" />
-                <a href="tel:+48123456789" className="hover:text-white transition-colors">
-                  +48 123 456 789
-                </a>
-              </div>
-              <div className="flex items-center text-gray-300">
-                <Mail className="h-3 w-3 mr-2 flex-shrink-0" />
-                <a href="mailto:kontakt@wiktoriaputz.pl" className="hover:text-white transition-colors">
-                  kontakt@wiktoriaputz.pl
+                <a href="tel:+48696919545" className="hover:text-white transition-colors">
+                  696 919 545
                 </a>
               </div>
             </div>
@@ -120,8 +114,7 @@ const Footer = () => {
             "name": "Wiktoria Putz Photography",
             "description": "Profesjonalny fotograf w Bydgoszczy specjalizujący się w fotografii ludzi i zwierząt",
             "url": "https://your-domain.com",
-            "telephone": "+48123456789",
-            "email": "kontakt@wiktoriaputz.pl",
+            "telephone": "+48696919545",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Bydgoszcz",
