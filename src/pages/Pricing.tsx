@@ -1,116 +1,186 @@
-
+import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
-import { Check } from 'lucide-react';
 
-const Pricing = () => {
-  const packages = [
+const Services = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState({
+    fotoreportaz: 0,
+    kon: 0,
+    produktowa: 0,
+    sprzedaz: 0,
+    psy: 0
+  });
+
+  const services = [
     {
-      name: 'Pakiet Podstawowy',
-      price: '299 zł',
-      duration: '1 godzina',
-      features: [
-        '1 godzina sesji fotograficznej',
-        '10 obrobionych zdjęć',
-        'Galeria online',
-        'Zdjęcia w wysokiej rozdzielczości',
-      ]
+      id: 'fotoreportaz',
+      title: 'Fotoreportaż z zawodów i treningów',
+      description: 'Dynamiczne ujęcia pełne emocji i pasji! Uchwycę najważniejsze momenty zawodów, a także kulisy treningów – z naturalnością i wyczuciem chwili. Idealna pamiątka i świetny materiał promocyjny.',
+      images: [
+        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80',
+        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
+        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80'
+      ],
+      reverse: false
     },
     {
-      name: 'Pakiet Standard',
-      price: '499 zł',
-      duration: '2 godziny',
-      popular: true,
-      features: [
-        '2 godziny sesji fotograficznej',
-        '25 obrobionych zdjęć',
-        'Galeria online',
-        'Zdjęcia w wysokiej rozdzielczości',
-        'Podstawowa obróbka kolorystyczna',
-        '1 zmiana lokalizacji',
-      ]
+      id: 'kon',
+      title: 'Sesja z koniem',
+      description: 'Wyjątkowa sesja ukazująca więź człowieka z koniem. Plenerowe zdjęcia pełne emocji, bliskości i elegancji. Doskonała pamiątka dla każdego miłośnika koni.',
+      images: [
+        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=800&q=80',
+        'https://images.unsplash.com/photo-1580110465896-cc08c0aeb6af?w=800&q=80',
+        'https://images.unsplash.com/photo-1602250725115-1d99d2b3e98b?w=800&q=80',
+        'https://images.unsplash.com/photo-1570026818076-1a3e3c5eb751?w=800&q=80'
+      ],
+      reverse: true
     },
     {
-      name: 'Pakiet Premium',
-      price: '799 zł',
-      duration: '3 godziny',
-      features: [
-        '3 godziny sesji fotograficznej',
-        '50 obrobionych zdjęć',
-        'Galeria online',
-        'Zdjęcia w wysokiej rozdzielczości',
-        'Zaawansowana obróbka kolorystyczna',
-        '2 zmiany lokalizacji',
-        'Konsultacja przed sesją',
-        'USB z wszystkimi zdjęciami',
-      ]
+      id: 'produktowa',
+      title: 'Sesja produktowa',
+      description: 'Profesjonalne zdjęcia Twoich produktów – estetyczne, spójne i dopasowane do marki. Idealne do sklepu internetowego, social mediów i materiałów reklamowych.',
+      images: [
+        'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80',
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
+        'https://images.unsplash.com/photo-1586198937331-c6b746b816c0?w=800&q=80',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80'
+      ],
+      reverse: false
+    },
+    {
+      id: 'sprzedaz',
+      title: 'Sesja sprzedażowa koni',
+      description: 'Zadbam o to, by Twój koń prezentował się jak najlepiej! Sesja podkreślająca sylwetkę, ruch i charakter konia – idealna do ogłoszeń sprzedażowych i katalogów hodowlanych.',
+      images: [
+        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80',
+        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
+        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=800&q=80'
+      ],
+      reverse: true
+    },
+    {
+      id: 'psy',
+      title: 'Sesja z psami',
+      description: 'Naturalne, pełne czułości kadry ukazujące charakter i osobowość Twojego psa. W plenerze lub w domu – dla właścicieli, którzy chcą mieć piękną pamiątkę ze swoim pupilem.',
+      images: [
+        'https://images.unsplash.com/photo-1552053831-71594a27632d?w=800&q=80',
+        'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80',
+        'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&q=80',
+        'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=800&q=80'
+      ],
+      reverse: false
     }
   ];
 
+  // Automatyczne przełączanie slajdów
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prev => {
+        const newIndex = { ...prev };
+        services.forEach(service => {
+          newIndex[service.id] = (prev[service.id] + 1) % service.images.length;
+        });
+        return newIndex;
+      });
+    }, 4000); // zmiana co 4 sekundy
+
+    return () => clearInterval(interval);
+  }, [services]);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Navigation />
       
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-playfair font-bold text-gray-900 mb-6">
-              Cennik
+              Usługi
             </h1>
             <p className="text-lg text-gray-600 font-inter max-w-2xl mx-auto">
-              Wybierz pakiet idealnie dopasowany do Twoich potrzeb i budżetu.
+              Profesjonalne usługi fotograficzne dostosowane do Twoich potrzeb. 
+              Specjalizuję się w fotografii ludzi i zwierząt z pasją i zaangażowaniem.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {packages.map((pkg, index) => (
+          {/* Sekcje usług */}
+          <div className="space-y-24">
+            {services.map((service, index) => (
               <div
-                key={index}
-                className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in ${
-                  pkg.popular ? 'ring-2 ring-gray-900 scale-105' : ''
+                key={service.id}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-fade-in ${
+                  service.reverse ? 'lg:grid-flow-col-dense' : ''
                 }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                style={{ animationDelay: `${index * 0.2}s` }}
               >
-                {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-inter font-medium">
-                      Najpopularniejszy
-                    </span>
-                  </div>
-                )}
-                
-                <div className="p-8">
-                  <h3 className="text-2xl font-playfair font-semibold text-gray-900 mb-2">
-                    {pkg.name}
-                  </h3>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-gray-900">{pkg.price}</span>
-                    <span className="text-gray-600 ml-2">/ {pkg.duration}</span>
-                  </div>
+                {/* Zdjęcia - slideshow */}
+                <div className={`relative overflow-hidden rounded-2xl shadow-2xl h-96 lg:h-[500px] ${
+                  service.reverse ? 'lg:col-start-2' : ''
+                }`}>
+                  {service.images.map((image, imageIndex) => (
+                    <img
+                      key={imageIndex}
+                      src={image}
+                      alt={`${service.title} ${imageIndex + 1}`}
+                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                        imageIndex === currentImageIndex[service.id] ? 'opacity-100' : 'opacity-0'
+                      }`}
+                    />
+                  ))}
                   
-                  <ul className="space-y-4 mb-8">
-                    {pkg.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start">
-                        <Check className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 font-inter">{feature}</span>
-                      </li>
+                  {/* Gradient overlay dla lepszej czytelności */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  
+                  {/* Wskaźniki slajdów */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    {service.images.map((_, dotIndex) => (
+                      <div
+                        key={dotIndex}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          dotIndex === currentImageIndex[service.id] 
+                            ? 'bg-white scale-125' 
+                            : 'bg-white/50'
+                        }`}
+                      />
                     ))}
-                  </ul>
-                  
-                  <button className="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-inter font-medium hover:bg-gray-800 transition-colors duration-200">
-                    Wybierz pakiet
+                  </div>
+                </div>
+
+                {/* Opis */}
+                <div className={`space-y-6 ${service.reverse ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                  <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900">
+                    {service.title}
+                  </h2>
+                  <p className="text-lg text-gray-600 font-inter leading-relaxed">
+                    {service.description}
+                  </p>
+                  <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105">
+                    Sprawdź cennik
                   </button>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <p className="text-gray-600 font-inter mb-4">
-              Potrzebujesz czegoś innego? Skontaktuj się ze mną!
+          {/* Sekcja CTA */}
+          <div className="mt-24 bg-gray-900 text-white rounded-2xl p-8 md:p-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6">
+              Gotowy na wyjątkową sesję?
+            </h2>
+            <p className="text-lg font-inter mb-8 max-w-3xl mx-auto opacity-90">
+              Każda sesja jest dostosowana do indywidualnych potrzeb klienta. 
+              Przed każdą sesją przeprowadzam konsultację, aby zrozumieć Twoje oczekiwania 
+              i stworzyć wyjątkowe zdjęcia.
             </p>
-            <button className="bg-white text-gray-900 border-2 border-gray-900 py-3 px-8 rounded-lg font-inter font-medium hover:bg-gray-900 hover:text-white transition-all duration-200">
-              Kontakt
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-gray-900 px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-100 transition-colors duration-200">
+                Zobacz cennik
+              </button>
+              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-gray-900 transition-all duration-200">
+                Skontaktuj się
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -118,4 +188,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Services;
