@@ -20,10 +20,10 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3">
               <a href="https://www.facebook.com/profile.php?id=100064821888953&locale=pl_PL" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
-                <Facebook className="h-4 w-4" />
+                <Facebook className="h-8 w-8" />
               </a>
               <a href="https://www.instagram.com/hoofandpawphoto/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
-                <Instagram className="h-4 w-4" />
+                <Instagram className="h-8 w-8" />
               </a>
             </div>
           </div>
@@ -91,14 +91,6 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-300 font-inter text-xs mb-2 md:mb-0">
               © {currentYear} Wiktoria Putz Photography. Wszystkie prawa zastrzeżone.
-            </div>
-            <div className="flex space-x-4 text-xs font-inter">
-              <a href="/" className="text-gray-300 hover:text-white transition-colors">
-                Polityka prywatności
-              </a>
-              <a href="/" className="text-gray-300 hover:text-white transition-colors">
-                Regulamin
-              </a>
             </div>
           </div>
         </div>

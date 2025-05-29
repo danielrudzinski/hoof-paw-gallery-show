@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState({
@@ -16,10 +17,14 @@ const Services = () => {
       title: 'Fotoreportaż z zawodów i treningów',
       description: 'Dynamiczne ujęcia pełne emocji i pasji! Uchwycę najważniejsze momenty zawodów, a także kulisy treningów – z naturalnością i wyczuciem chwili. Idealna pamiątka i świetny materiał promocyjny.',
       images: [
-        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80',
-        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
-        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80'
+        '/jezdziectwo/jazda1.jpg',
+        '/jezdziectwo/jazda2.jpg',
+        '/jezdziectwo/jazda7.jpg',
+        '/jezdziectwo/jazda8.jpg',
+        '/jezdziectwo/jazda10.jpg',
+        '/jezdziectwo/jazda6.jpg',
+        '/jezdziectwo/jazda12.png',
+        '/jezdziectwo/jazda13.png',
       ],
       reverse: false
     },
@@ -28,10 +33,17 @@ const Services = () => {
       title: 'Sesja z koniem',
       description: 'Wyjątkowa sesja ukazująca więź człowieka z koniem. Plenerowe zdjęcia pełne emocji, bliskości i elegancji. Doskonała pamiątka dla każdego miłośnika koni.',
       images: [
-        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=800&q=80',
-        'https://images.unsplash.com/photo-1580110465896-cc08c0aeb6af?w=800&q=80',
-        'https://images.unsplash.com/photo-1602250725115-1d99d2b3e98b?w=800&q=80',
-        'https://images.unsplash.com/photo-1570026818076-1a3e3c5eb751?w=800&q=80'
+        '/konie/kon1.png',
+        '/konie/kon4.png',
+        '/konie/kon3.png',
+        '/konie/kon5.png',
+        '/konie/kon6.png',
+        '/konie/kon7.png',
+        '/konie/kon8.jpeg',
+        '/konie/kon9.png',
+        '/konie/kon10.png',
+        '/konie/kon11.png',
+        '/konie/kon19.png'
       ],
       reverse: true
     },
@@ -40,10 +52,14 @@ const Services = () => {
       title: 'Sesja produktowa',
       description: 'Profesjonalne zdjęcia Twoich produktów – estetyczne, spójne i dopasowane do marki. Idealne do sklepu internetowego, social mediów i materiałów reklamowych.',
       images: [
-        'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80',
-        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
-        'https://images.unsplash.com/photo-1586198937331-c6b746b816c0?w=800&q=80',
-        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80'
+        '/konie/kon17.png',
+        '/konie/kon2.jpg',
+        '/konie/kon18.png',
+        '/koty/kot1.png',
+        '/psy/bulldog.jpeg',
+        '/psy/dog2.jpg',
+        '/psy/dog3.jpg',
+        '/psy/dog5.png'
       ],
       reverse: false
     },
@@ -52,10 +68,12 @@ const Services = () => {
       title: 'Sesja sprzedażowa koni',
       description: 'Zadbam o to, by Twój koń prezentował się jak najlepiej! Sesja podkreślająca sylwetkę, ruch i charakter konia – idealna do ogłoszeń sprzedażowych i katalogów hodowlanych.',
       images: [
-        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80',
-        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
-        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=800&q=80'
+        '/konie/kon16.png',
+        '/konie/kon17.png',
+        '/konie/kon18.png',
+        '/konie/kon19.png',
+        '/konie/kon20.png',
+        '/konie/kon21.png'
       ],
       reverse: true
     },
@@ -64,10 +82,12 @@ const Services = () => {
       title: 'Sesja z psami',
       description: 'Naturalne, pełne czułości kadry ukazujące charakter i osobowość Twojego psa. W plenerze lub w domu – dla właścicieli, którzy chcą mieć piękną pamiątkę ze swoim pupilem.',
       images: [
-        'https://images.unsplash.com/photo-1552053831-71594a27632d?w=800&q=80',
-        'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80',
-        'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&q=80',
-        'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=800&q=80'
+        '/psy/bulldog.jpeg',
+        '/psy/dog.png',
+        '/psy/dog2.jpg',
+        '/psy/dog3.jpg',
+        '/psy/dog4.jpeg',
+        '/psy/dog5.png'
       ],
       reverse: false
     }
@@ -170,9 +190,12 @@ const Services = () => {
                     </div>
                   </div>
                   
-                  <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105">
-                    Umów sesję
-                  </button>
+              <Link 
+                to="/kontakt" 
+                className="bg-gray-900 text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105 inline-block text-center"
+              >
+                Umów sesję
+              </Link>
                 </div>
               </div>
             ))}
@@ -189,12 +212,18 @@ const Services = () => {
               i stworzyć wyjątkowe zdjęcia.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-gray-900 px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-100 transition-colors duration-200">
+              <Link 
+                to="/kontakt" 
+                className="bg-white text-gray-900 px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-100 transition-colors duration-200 inline-block text-center"
+              >
                 Umów sesję
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-gray-900 transition-all duration-200">
+              </Link>
+              <Link 
+                to="/kontakt" 
+                className="border-2 border-white text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-gray-900 transition-all duration-200 inline-block text-center"
+              >
                 Skontaktuj się
-              </button>
+              </Link>
             </div>
           </div>
         </div>
