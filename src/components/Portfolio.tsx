@@ -198,17 +198,18 @@ const Portfolio: React.FC<PortfolioProps> = ({
       {/* Lightbox */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 overflow-auto"
           onClick={closeLightbox}
         >
           <div 
-            className="relative max-w-7xl max-h-full"
+            className="relative w-full h-full flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={selectedImage}
               alt="Podgląd zdjęcia"
-              className="max-w-full max-h-full object-contain"
+              className="max-w-full max-h-full object-contain w-auto h-auto"
+              style={{ maxWidth: '95vw', maxHeight: '95vh' }}
               onError={(e) => {
                 console.error(`Failed to load image in lightbox: ${selectedImage}`);
                 e.currentTarget.src = '/placeholder.svg';
@@ -216,7 +217,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
             />
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+              className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
               aria-label="Zamknij podgląd"
             >
               ×
@@ -225,14 +226,14 @@ const Portfolio: React.FC<PortfolioProps> = ({
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
                   aria-label="Poprzednie zdjęcie"
                 >
                   ‹
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
                   aria-label="Następne zdjęcie"
                 >
                   ›
