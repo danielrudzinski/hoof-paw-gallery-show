@@ -20,7 +20,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div className="animate-fade-in">
               <img
-                src="zdjeciezaparatem.jpg"
+                src="zdjeciezaparatem.webp"
                 alt="Fotograf z aparatem"
                 className="w-full h-96 object-cover rounded-2xl shadow-lg"
               />

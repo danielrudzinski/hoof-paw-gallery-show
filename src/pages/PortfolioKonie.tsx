@@ -3,19 +3,19 @@ import Portfolio from '@/components/Portfolio';
 
 const PortfolioKonie = () => {
   const peopleHorses = [
-      '/konie/kon1.png',
-      '/konie/kon2.jpg',
-      '/konie/kon3.png',
-      '/konie/kon4.png',
-      '/konie/kon5.png',
-      '/konie/kon6.png',
-      '/konie/kon7.png',
-      '/konie/kon8.jpeg',
-      '/jezdziectwo/jazda1.jpg',
-      '/jezdziectwo/jazda2.jpg',
-      '/jezdziectwo/jazda3.png',
-      '/jezdziectwo/jazda4.jpg',
-      '/jezdziectwo/jazda5.png',
+      '/konie/kon1.webp',
+      '/konie/kon2.webp',
+      '/konie/kon3.webp',
+      '/konie/kon4.webp',
+      '/konie/kon5.webp',
+      '/konie/kon6.webp',
+      '/konie/kon7.webp',
+      '/konie/kon8.webp',
+      '/jezdziectwo/jazda1.webp',
+      '/jezdziectwo/jazda2.webp',
+      '/jezdziectwo/jazda3.webp',
+      '/jezdziectwo/jazda4.webp',
+      '/jezdziectwo/jazda5.webp',
   ];
 
   return (

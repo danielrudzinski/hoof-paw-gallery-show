@@ -3,13 +3,13 @@ import Portfolio from '@/components/Portfolio';
 
 const PortfolioZwierzeta = () => {
   const animalImages = [
-    '/psy/bulldog.jpeg',
-    '/psy/dog2.jpg',
-    '/koty/kot1.png',
-    '/psy/dog.png',
-    '/psy/dog3.jpg',
-    '/psy/dog4.jpeg',
-    '/psy/dog5.png',
+    '/psy/bulldog.webp',
+    '/psy/dog2.webp',
+    '/koty/kot1.webp',
+    '/psy/dog.webp',
+    '/psy/dog3.webp',
+    '/psy/dog4.webp',
+    '/psy/dog5.webp',
   ];
 
   return (
