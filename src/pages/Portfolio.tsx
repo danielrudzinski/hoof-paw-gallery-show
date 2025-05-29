@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 
 const Portfolio = () => {
@@ -7,6 +8,7 @@ const Portfolio = () => {
     horses: 0, 
     pets: 0 
   });
+  const navigate = useNavigate();
 
   const portfolioCategories = [
     {
@@ -14,10 +16,8 @@ const Portfolio = () => {
       title: 'Ludzie',
       route: '/portfolio/ludzie',
       images: [
-        'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&q=80',
-        'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-        'https://images.unsplash.com/photo-1494790108755-2616c4d3a9f0?w=800&q=80',
+        '/ludzie/ppl.jpeg',
+        '/ludziezwierzeta/ppl2.jpeg',
       ]
     },
     {
@@ -36,7 +36,7 @@ const Portfolio = () => {
     {
       id: 'pets',
       title: 'Psy i Koty',
-      route: '/portfolio/psy-koty',
+      route: '/portfolio/psyikoty',
       images: [
         'https://images.unsplash.com/photo-1552053831-71594a27632d?w=800&q=80',
         'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80',
@@ -56,16 +56,13 @@ const Portfolio = () => {
         horses: (prev.horses + 1) % portfolioCategories[1].images.length,
         pets: (prev.pets + 1) % portfolioCategories[2].images.length,
       }));
-    }, 3000); // zmiana co 3 sekundy
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [portfolioCategories]);
 
-  const handleCategoryClick = (route) => {
-    // Na razie console.log, później można użyć react-router
-    console.log(`Przekierowanie do: ${route}`);
-    // window.location.href = route; // lub użyj navigate z react-router
-    alert(`Funkcja w przygotowaniu: ${route}`);
+  const handleCategoryClick = (route: string) => {
+    navigate(route);
   };
 
   return (
