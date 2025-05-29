@@ -1,11 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import Navigation from '../components/Navigation';
+import Slideshow from '../components/Slideshow';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="relative min-h-screen">
+      <Navigation />
+      
+      {/* Background Slideshow */}
+      <Slideshow />
+      
+      {/* Main Content */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center">
+        <div className="text-center text-white animate-fade-in">
+          <h1 className="text-6xl md:text-8xl font-playfair font-bold mb-6 tracking-wide">
+            Hoof & Paw
+          </h1>
+          <p className="text-xl md:text-2xl font-inter font-light tracking-wider opacity-90">
+            Fotografia Ludzi i Zwierząt
+          </p>
+        </div>
       </div>
     </div>
   );
