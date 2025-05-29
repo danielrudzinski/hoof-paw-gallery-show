@@ -1,25 +1,32 @@
 import React from 'react';
 import Portfolio from '@/components/Portfolio';
 
-const PortfolioLudzie = () => {
-  const peopleImages = [
-        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
-        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80',
-        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=800&q=80',
-        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80',
-        'https://images.unsplash.com/photo-1580110465896-cc08c0aeb6af?w=800&q=80',
+const PortfolioKonie = () => {
+  const peopleHorses = [
+      '/konie/kon1.png',
+      '/konie/kon2.jpg',
+      '/konie/kon3.png',
+      '/konie/kon4.png',
+      '/konie/kon5.png',
+      '/konie/kon6.png',
+      '/konie/kon7.png',
+      '/konie/kon8.jpeg',
+      '/jezdziectwo/jazda1.jpg',
+      '/jezdziectwo/jazda2.jpg',
+      '/jezdziectwo/jazda3.png',
+      '/jezdziectwo/jazda4.jpg',
+      '/jezdziectwo/jazda5.png',
   ];
 
   return (
     <Portfolio
       title="Portfolio - Konie i Jeździectwo"
       description="Profesjonalne sesje portretowe i fotograficzne z końmi"
-      images={peopleImages}
+      images={peopleHorses}
       backLink="/portfolio"
       backText="Powrót do Portfolio"
     />
   );
 };
 
-export default PortfolioLudzie;
+export default PortfolioKonie;

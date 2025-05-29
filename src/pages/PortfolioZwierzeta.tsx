@@ -3,17 +3,13 @@ import Portfolio from '@/components/Portfolio';
 
 const PortfolioZwierzeta = () => {
   const animalImages = [
-    '/zwierzeta/bulldog.jpeg',
-    '/zwierzeta/kon1.png',
-    '/zwierzeta/kon2.png',
-    '/zwierzeta/kon5.png',
-    '/zwierzeta/kon6.png',
-    '/zwierzeta/kon7.png',
-    '/zwierzeta/dog.png',
-    '/ludziezwierzeta/kon3.png',
-    '/ludziezwierzeta/kon4.png',
-    '/ludziezwierzeta/kon8.jpeg',
-    '/ludziezwierzeta/kon9.png',
+    '/psy/bulldog.jpeg',
+    '/psy/dog2.jpg',
+    '/koty/kot1.png',
+    '/psy/dog.png',
+    '/psy/dog3.jpg',
+    '/psy/dog4.jpeg',
+    '/psy/dog5.png',
   ];
 
   return (

@@ -4,7 +4,6 @@ import Navigation from '../components/Navigation';
 
 const Portfolio = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState({ 
-    people: 0, 
     horses: 0, 
     pets: 0 
   });
@@ -12,25 +11,23 @@ const Portfolio = () => {
 
   const portfolioCategories = [
     {
-      id: 'people',
-      title: 'Ludzie',
-      route: '/portfolio/ludzie',
-      images: [
-        '/ludzie/ppl.jpeg',
-        '/ludziezwierzeta/ppl2.jpeg',
-      ]
-    },
-    {
       id: 'horses',
       title: 'Konie i Jeździectwo',
       route: '/portfolio/konie-jezdziectwo',
       images: [
-        'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
-        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-        'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80',
-        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?w=800&q=80',
-        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80',
-        'https://images.unsplash.com/photo-1580110465896-cc08c0aeb6af?w=800&q=80',
+        'konie/kon1.png',
+        'konie/kon2.jpg',
+        'konie/kon3.png',
+        'konie/kon4.png',
+        'konie/kon5.png',
+        'konie/kon6.png',
+        'konie/kon7.png',
+        'konie/kon8.jpeg',
+        'jezdziectwo/jazda1.jpg',
+        'jezdziectwo/jazda2.jpg',
+        'jezdziectwo/jazda3.png',
+        'jezdziectwo/jazda4.jpg',
+        'jezdziectwo/jazda5.png',
       ]
     },
     {
@@ -38,12 +35,13 @@ const Portfolio = () => {
       title: 'Psy i Koty',
       route: '/portfolio/psyikoty',
       images: [
-        'https://images.unsplash.com/photo-1552053831-71594a27632d?w=800&q=80',
-        'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80',
-        'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80',
-        'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&q=80',
-        'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=800&q=80',
-        'https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800&q=80',
+        'psy/bulldog.jpeg',
+        'psy/dog2.jpg',
+        'koty/kot1.png',
+        'psy/dog.png',
+        'psy/dog3.jpg',
+        'psy/dog4.jpeg',
+        'psy/dog5.png',
       ]
     }
   ];
@@ -52,9 +50,8 @@ const Portfolio = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => ({
-        people: (prev.people + 1) % portfolioCategories[0].images.length,
-        horses: (prev.horses + 1) % portfolioCategories[1].images.length,
-        pets: (prev.pets + 1) % portfolioCategories[2].images.length,
+        horses: (prev.horses + 1) % portfolioCategories[0].images.length,
+        pets: (prev.pets + 1) % portfolioCategories[1].images.length,
       }));
     }, 3000);
 
@@ -80,8 +77,8 @@ const Portfolio = () => {
             </p>
           </div>
 
-          {/* Kafelki z slideshow */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Kafelki z slideshow - zmienione na 2 kolumny */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {portfolioCategories.map((category, index) => (
               <div
                 key={category.id}
