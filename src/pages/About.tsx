@@ -1,4 +1,3 @@
-
 import Navigation from '../components/Navigation';
 import { Camera, Award, Heart } from 'lucide-react';
 
@@ -29,18 +28,24 @@ const About = () => {
             
             <div className="animate-fade-in">
               <h2 className="text-3xl font-playfair font-semibold text-gray-900 mb-6">
-                Cześć, jestem fotografem specjalizującym się w fotografii ludzi i zwierząt
+                Cześć, jestem Wiktoria
               </h2>
               <p className="text-gray-600 font-inter mb-6 leading-relaxed">
-                Od ponad 8 lat dokumentuję najpiękniejsze momenty w życiu ludzi i ich 
-                czworonożnych przyjaciół. Moja pasja do fotografii rozpoczęła się podczas 
-                studiów, kiedy po raz pierwszy złapałem za aparat i odkryłem magię 
-                uwieczniania emocji i chwil.
+                Fotografią interesuję się od najmłodszych lat – tak samo jak końmi i psami. 
+                Dorastałam w przydomowej stajni hodowlanej, gdzie od zawsze towarzyszyły mi 
+                zwierzęta, które nauczyły mnie cierpliwości, uważności i szacunku do ich natury.
+              </p>
+              <p className="text-gray-600 font-inter mb-6 leading-relaxed">
+                Z wykształcenia jestem technikiem weterynarii, a prywatnie – szczęśliwą opiekunką 
+                trzech kundelków. Z miłości do fotografii i zwierząt postanowiłam połączyć te dwie 
+                pasje w jedno, tworząc sesje zdjęciowe, które ukazują prawdziwą więź między 
+                człowiekiem a jego pupilem.
               </p>
               <p className="text-gray-600 font-inter leading-relaxed">
-                Wierzę, że każda sesja jest wyjątkowa i wymaga indywidualnego podejścia. 
-                Moim celem jest stworzenie atmosfery, w której zarówno ludzie, jak i zwierzęta 
-                czują się komfortowo i naturalnie.
+                Przez lata byłam również zawodniczką w skokach przez przeszkody i brałam udział 
+                w licznych wydarzeniach hodowlanych. To doświadczenie pozwala mi doskonale 
+                rozumieć potrzeby zarówno hodowców, jak i sportowców – wiem, na co zwracają 
+                uwagę i co chcą zobaczyć na zdjęciach.
               </p>
             </div>
           </div>
@@ -49,20 +54,20 @@ const About = () => {
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg animate-fade-in">
               <Camera className="h-12 w-12 text-gray-900 mx-auto mb-4" />
               <h3 className="text-xl font-playfair font-semibold text-gray-900 mb-2">
-                Doświadczenie
+                Wykształcenie
               </h3>
               <p className="text-gray-600 font-inter">
-                Ponad 8 lat w branży fotograficznej
+                Technik weterynarii z pasją do fotografii
               </p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg animate-fade-in">
               <Award className="h-12 w-12 text-gray-900 mx-auto mb-4" />
               <h3 className="text-xl font-playfair font-semibold text-gray-900 mb-2">
-                Certyfikaty
+                Doświadczenie
               </h3>
               <p className="text-gray-600 font-inter">
-                Certyfikowany fotografik portretowy
+                Zawodniczka w skokach przez przeszkody
               </p>
             </div>
             
@@ -72,7 +77,7 @@ const About = () => {
                 Pasja
               </h3>
               <p className="text-gray-600 font-inter">
-                Miłość do zwierząt i fotografii
+                Opiekunka trzech kundelków, miłośniczka koni
               </p>
             </div>
           </div>
@@ -87,35 +92,35 @@ const About = () => {
                   Naturalność
                 </h4>
                 <p className="text-gray-600 font-inter">
-                  Najpiękniejsze zdjęcia powstają, gdy modele czują się swobodnie. 
-                  Staram się tworzyć atmosferę pełną spokoju i zaufania.
+                  Codzienne obcowanie z końmi i psami sprawia, że praca z nimi podczas 
+                  sesji jest dla mnie naturalna i bezproblemowa.
                 </p>
               </div>
               <div>
                 <h4 className="text-xl font-playfair font-semibold text-gray-900 mb-3">
-                  Emocje
+                  Zrozumienie
                 </h4>
                 <p className="text-gray-600 font-inter">
-                  Każde zdjęcie powinno opowiadać historię i wzbudzać emocje. 
-                  To właśnie czyni fotografię wyjątkową.
+                  Doświadczenie w hodowli i sporcie jeździeckim pozwala mi rozumieć 
+                  potrzeby zarówno hodowców, jak i sportowców.
                 </p>
               </div>
               <div>
                 <h4 className="text-xl font-playfair font-semibold text-gray-900 mb-3">
-                  Cierpliwość
+                  Komfort zwierząt
                 </h4>
                 <p className="text-gray-600 font-inter">
-                  Praca ze zwierzętami wymaga szczególnej cierpliwości i zrozumienia 
-                  ich naturalnych zachowań.
+                  Potrafię zbudować spokojną atmosferę, w której zwierzęta czują się 
+                  swobodnie i bezpiecznie. Ich komfort stawiam na pierwszym miejscu.
                 </p>
               </div>
               <div>
                 <h4 className="text-xl font-playfair font-semibold text-gray-900 mb-3">
-                  Jakość
+                  Autentyczność
                 </h4>
                 <p className="text-gray-600 font-inter">
-                  Używam profesjonalnego sprzętu i nowoczesnych technik obróbki, 
-                  aby zapewnić najwyższą jakość zdjęć.
+                  Dzięki cierpliwości i szacunkowi do natury zwierząt tworzę 
+                  autentyczne, pełne emocji kadry ukazujące prawdziwą więź.
                 </p>
               </div>
             </div>
