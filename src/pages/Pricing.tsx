@@ -155,8 +155,23 @@ const Services = () => {
                   <p className="text-lg text-gray-600 font-inter leading-relaxed">
                     {service.description}
                   </p>
+                  
+                  {/* Cena */}
+                  <div className="bg-gray-50 rounded-xl p-6 border-l-4 border-gray-900">
+                    <div className="flex items-center justify-between">
+                      <span className="text-2xl font-playfair font-bold text-gray-900">
+                        {service.id === 'fotoreportaz' && 'Na zapytanie'}
+                        {service.id === 'kon' && '150 zł'}
+                        {service.id === 'produktowa' && 'Od 300 zł'}
+                        {service.id === 'sprzedaz' && 'Od 250 zł'}
+                        {service.id === 'psy' && 'Od 150 zł'}
+                      </span>
+                      <span className="text-sm text-gray-500 font-inter">za sesję</span>
+                    </div>
+                  </div>
+                  
                   <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105">
-                    Sprawdź cennik
+                    Umów sesję
                   </button>
                 </div>
               </div>
@@ -175,7 +190,7 @@ const Services = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-gray-900 px-8 py-3 rounded-lg font-inter font-medium hover:bg-gray-100 transition-colors duration-200">
-                Zobacz cennik
+                Umów sesję
               </button>
               <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-gray-900 transition-all duration-200">
                 Skontaktuj się
