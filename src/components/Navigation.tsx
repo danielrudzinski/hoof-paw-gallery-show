@@ -10,8 +10,8 @@ const Navigation = () => {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Galeria', path: '/portfolio' },
-    { name: 'Cennik', path: '/cennik' },
-    { name: 'Kontakt', path: '/oferta' },
+    { name: 'Oferta', path: '/cennik' },
+    { name: 'Kontakt', path: '/kontakt' },
     { name: 'O mnie', path: '/o-mnie' },
   ];
 
