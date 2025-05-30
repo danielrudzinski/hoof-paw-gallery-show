@@ -20,6 +20,14 @@ const Index = () => {
     {
       name: "Monika",
       text: "Cudowne zdjęcia i bardzo szybka realizacja. Polecam gorąco!"
+    },
+    {
+      name: "Szukała Team",
+      text: "Piękne zdjęcia, profesjonalne sesje, miła atmosfera. Dobrze uchwycone konie w skoku! Polecamy całym sercem."
+    },
+    {
+      name: "Julia",
+      text: "Sesja z koniem przebiegła profesjonalnie. Zdjęcia dostałam tego samego dnia! Jestem zachwycona, na pewno wrócę."
     }
   ];
 
