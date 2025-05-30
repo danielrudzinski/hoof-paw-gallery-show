@@ -17,14 +17,14 @@ const Services = () => {
       title: 'Fotoreportaż z zawodów i treningów',
       description: 'Dynamiczne ujęcia pełne emocji i pasji! Uchwycę najważniejsze momenty zawodów, a także kulisy treningów – z naturalnością i wyczuciem chwili. Idealna pamiątka i świetny materiał promocyjny.',
       images: [
-        '/jezdziectwo/jazda1.jpg',
-        '/jezdziectwo/jazda2.jpg',
-        '/jezdziectwo/jazda7.jpg',
-        '/jezdziectwo/jazda8.jpg',
-        '/jezdziectwo/jazda10.jpg',
-        '/jezdziectwo/jazda6.jpg',
-        '/jezdziectwo/jazda12.png',
-        '/jezdziectwo/jazda13.png',
+        '/jezdziectwo/jazda1.webp',
+        '/jezdziectwo/jazda2.webp',
+        '/jezdziectwo/jazda7.webp',
+        '/jezdziectwo/jazda8.webp',
+        '/jezdziectwo/jazda10.webp',
+        '/jezdziectwo/jazda6.webp',
+        '/jezdziectwo/jazda12.webp',
+        '/jezdziectwo/jazda13.webp',
       ],
       reverse: false
     },
@@ -33,17 +33,17 @@ const Services = () => {
       title: 'Sesja z koniem',
       description: 'Wyjątkowa sesja ukazująca więź człowieka z koniem. Plenerowe zdjęcia pełne emocji, bliskości i elegancji. Doskonała pamiątka dla każdego miłośnika koni.',
       images: [
-        '/konie/kon1.png',
-        '/konie/kon4.png',
-        '/konie/kon3.png',
-        '/konie/kon5.png',
-        '/konie/kon6.png',
-        '/konie/kon7.png',
-        '/konie/kon8.jpeg',
-        '/konie/kon9.png',
-        '/konie/kon10.png',
-        '/konie/kon11.png',
-        '/konie/kon19.png'
+        '/konie/kon1.webp',
+        '/konie/kon4.webp',
+        '/konie/kon3.webp',
+        '/konie/kon5.webp',
+        '/konie/kon6.webp',
+        '/konie/kon7.webp',
+        '/konie/kon8.webp',
+        '/konie/kon9.webp',
+        '/konie/kon10.webp',
+        '/konie/kon11.webp',
+        '/konie/kon19.webp'
       ],
       reverse: true
     },
@@ -52,14 +52,14 @@ const Services = () => {
       title: 'Sesja produktowa',
       description: 'Profesjonalne zdjęcia Twoich produktów – estetyczne, spójne i dopasowane do marki. Idealne do sklepu internetowego, social mediów i materiałów reklamowych.',
       images: [
-        '/konie/kon17.png',
-        '/konie/kon2.jpg',
-        '/konie/kon18.png',
-        '/koty/kot1.png',
-        '/psy/bulldog.jpeg',
-        '/psy/dog2.jpg',
-        '/psy/dog3.jpg',
-        '/psy/dog5.png'
+        '/konie/kon17.webp',
+        '/konie/kon2.webp',
+        '/konie/kon18.webp',
+        '/koty/kot1.webp',
+        '/psy/bulldog.webp',
+        '/psy/dog2.webp',
+        '/psy/dog3.webp',
+        '/psy/dog5.webp'
       ],
       reverse: false
     },
@@ -68,12 +68,12 @@ const Services = () => {
       title: 'Sesja sprzedażowa koni',
       description: 'Zadbam o to, by Twój koń prezentował się jak najlepiej! Sesja podkreślająca sylwetkę, ruch i charakter konia – idealna do ogłoszeń sprzedażowych i katalogów hodowlanych.',
       images: [
-        '/konie/kon16.png',
-        '/konie/kon17.png',
-        '/konie/kon18.png',
-        '/konie/kon19.png',
-        '/konie/kon20.png',
-        '/konie/kon21.png'
+        '/konie/kon16.webp',
+        '/konie/kon17.webp',
+        '/konie/kon18.webp',
+        '/konie/kon19.webp',
+        '/konie/kon20.webp',
+        '/konie/kon21.webp'
       ],
       reverse: true
     },
@@ -82,12 +82,12 @@ const Services = () => {
       title: 'Sesja z psami',
       description: 'Naturalne, pełne czułości kadry ukazujące charakter i osobowość Twojego psa. W plenerze lub w domu – dla właścicieli, którzy chcą mieć piękną pamiątkę ze swoim pupilem.',
       images: [
-        '/psy/bulldog.jpeg',
-        '/psy/dog.png',
-        '/psy/dog2.jpg',
-        '/psy/dog3.jpg',
-        '/psy/dog4.jpeg',
-        '/psy/dog5.png'
+        '/psy/bulldog.webp',
+        '/psy/dog.webp',
+        '/psy/dog2.webp',
+        '/psy/dog3.webp',
+        '/psy/dog4.webp',
+        '/psy/dog5.webp'
       ],
       reverse: false
     }
