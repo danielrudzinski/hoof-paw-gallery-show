@@ -13,6 +13,7 @@ import Services from "./pages/Services";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Index />} />
