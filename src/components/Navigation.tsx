@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -8,11 +7,11 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Galeria', path: '/portfolio' },
-    { name: 'Oferta', path: '/cennik' },
-    { name: 'Kontakt', path: '/kontakt' },
-    { name: 'O mnie', path: '/o-mnie' },
+    { name: 'Home', path: '/', ariaLabel: 'Strona główna' },
+    { name: 'Galeria', path: '/portfolio', ariaLabel: 'Portfolio zdjęć' },
+    { name: 'Oferta', path: '/cennik', ariaLabel: 'Cennik usług fotograficznych' },
+    { name: 'Kontakt', path: '/kontakt', ariaLabel: 'Informacje kontaktowe' },
+    { name: 'O mnie', path: '/o-mnie', ariaLabel: 'Informacje o fotografie' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -40,16 +39,20 @@ const Navigation = () => {
     : "text-gray-600 hover:text-gray-900 transition-colors";
 
   return (
-    <nav className={navStyle}>
+    <nav className={navStyle} role="navigation" aria-label="Nawigacja główna">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
-          <Link to="/" className={logoStyle}>
-            Wiktoria Putz
+          <Link 
+            to="/" 
+            className={logoStyle}
+            aria-label="Wiktoria Putz Photography - Strona główna"
+          >
+            <h1 className="text-2xl font-playfair font-bold">Wiktoria Putz</h1>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8" role="menubar">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -59,6 +62,9 @@ const Navigation = () => {
                     ? linkActiveStyle
                     : linkInactiveStyle
                 }`}
+                aria-label={item.ariaLabel}
+                aria-current={isActive(item.path) ? 'page' : undefined}
+                role="menuitem"
               >
                 {item.name}
               </Link>
@@ -70,15 +76,23 @@ const Navigation = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={mobileButtonStyle}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className={`md:hidden pb-4 mx-4 ${isHomePage ? 'bg-black/50 backdrop-blur-md rounded-lg' : 'bg-white/95 backdrop-blur-md rounded-lg border border-gray-200'}`}>
+          <div 
+            id="mobile-menu"
+            className={`md:hidden pb-4 mx-4 ${isHomePage ? 'bg-black/50 backdrop-blur-md rounded-lg' : 'bg-white/95 backdrop-blur-md rounded-lg border border-gray-200'}`}
+            role="menu"
+            aria-label="Menu mobilne"
+          >
             <div className="flex flex-col space-y-3 p-4">
               {navItems.map((item) => (
                 <Link
@@ -90,6 +104,9 @@ const Navigation = () => {
                       ? (isHomePage ? 'text-white font-semibold' : 'text-gray-900 font-semibold')
                       : (isHomePage ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-900')
                   }`}
+                  aria-label={item.ariaLabel}
+                  aria-current={isActive(item.path) ? 'page' : undefined}
+                  role="menuitem"
                 >
                   {item.name}
                 </Link>

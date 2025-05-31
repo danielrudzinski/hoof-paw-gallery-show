@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navigation from '../components/Navigation';
 
 const Portfolio = () => {
@@ -62,8 +63,70 @@ const Portfolio = () => {
     navigate(route);
   };
 
+  const portfolioSchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Portfolio - Wiktoria Putz Photography",
+    "description": "Odkryj magię chwil uchwyconych obiektywem. Portfolio fotografii ludzi i zwierząt.",
+    "url": "https://wiktoriaputzphoto.pl/portfolio",
+    "author": {
+      "@type": "Person",
+      "name": "Wiktoria Putz"
+    },
+    "about": ["Fotografia koni", "Fotografia psów", "Fotografia kotów", "Jeździectwo"]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Strona główna",
+        "item": "https://wiktoriaputzphoto.pl"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Portfolio",
+        "item": "https://wiktoriaputzphoto.pl/portfolio"
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Portfolio - Wiktoria Putz | Galeria Zdjęć Koni, Psów i Kotów</title>
+        <meta name="description" content="Odkryj magię chwil uchwyconych obiektywem. Portfolio fotografii ludzi i zwierząt - konie, psy, koty. Profesjonalne sesje zdjęciowe w Bydgoszczy." />
+        <meta name="keywords" content="portfolio fotograf, galeria zdjęć koni, fotografia psów, fotografia kotów, jeździectwo Bydgoszcz, sesje zwierząt" />
+        <link rel="canonical" href="https://wiktoriaputzphoto.pl/portfolio" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Portfolio - Wiktoria Putz | Galeria Zdjęć Koni, Psów i Kotów" />
+        <meta property="og:description" content="Odkryj magię chwil uchwyconych obiektywem. Portfolio fotografii ludzi i zwierząt - konie, psy, koty." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://wiktoriaputzphoto.pl/portfolio" />
+        <meta property="og:image" content="https://wiktoriaputzphoto.pl/konie/kon1.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Portfolio - Wiktoria Putz | Galeria Zdjęć Koni, Psów i Kotów" />
+        <meta name="twitter:description" content="Odkryj magię chwil uchwyconych obiektywem. Portfolio fotografii ludzi i zwierząt." />
+        <meta name="twitter:image" content="https://wiktoriaputzphoto.pl/konie/kon1.webp" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(portfolioSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       <Navigation />
       
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">

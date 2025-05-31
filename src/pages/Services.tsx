@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Navigation from '../components/Navigation';
 import { Phone, Instagram, Facebook, Camera, Heart } from 'lucide-react';
 
@@ -29,8 +30,78 @@ const Contact = () => {
     }
   ];
 
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Kontakt - Wiktoria Putz Photography",
+    "description": "Skontaktuj się ze mną, aby umówić sesję lub zadać pytania. Chętnie porozmawiam o Twoich potrzebach i pomysłach.",
+    "url": "https://wiktoriaputzphoto.pl/kontakt",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Wiktoria Putz",
+      "telephone": "+48696919545",
+      "sameAs": [
+        "https://www.instagram.com/hoofandpawphoto/",
+        "https://www.facebook.com/profile.php?id=100064821888953&locale=pl_PL"
+      ]
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Strona główna",
+        "item": "https://wiktoriaputzphoto.pl"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Kontakt",
+        "item": "https://wiktoriaputzphoto.pl/kontakt"
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Kontakt - Wiktoria Putz | Umów Sesję Zdjęciową w Bydgoszczy</title>
+        <meta name="description" content="Skontaktuj się ze mną, aby umówić sesję lub zadać pytania. Telefon: 696 919 545. Profesjonalne sesje zdjęciowe w Bydgoszczy i okolicach." />
+        <meta name="keywords" content="kontakt fotograf Bydgoszcz, umów sesję zdjęciową, telefon fotograf, sesje zwierząt kontakt, Wiktoria Putz telefon" />
+        <link rel="canonical" href="https://wiktoriaputzphoto.pl/kontakt" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Kontakt - Wiktoria Putz | Umów Sesję Zdjęciową w Bydgoszczy" />
+        <meta property="og:description" content="Skontaktuj się ze mną, aby umówić sesję lub zadać pytania. Telefon: 696 919 545." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://wiktoriaputzphoto.pl/kontakt" />
+        <meta property="og:image" content="https://wiktoriaputzphoto.pl/logo2.webp" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Kontakt - Wiktoria Putz | Umów Sesję Zdjęciową w Bydgoszczy" />
+        <meta name="twitter:description" content="Skontaktuj się ze mną, aby umówić sesję lub zadać pytania. Telefon: 696 919 545." />
+        <meta name="twitter:image" content="https://wiktoriaputzphoto.pl/logo2.webp" />
+        
+        {/* Local Business Schema */}
+        <meta name="geo.region" content="PL-KP" />
+        <meta name="geo.placename" content="Bydgoszcz" />
+        <meta name="geo.position" content="53.1235;18.0084" />
+        <meta name="ICBM" content="53.1235, 18.0084" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(contactSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       <Navigation />
       
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
@@ -116,9 +187,6 @@ const Contact = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              
-                
-              
               <a
                 href="https://www.instagram.com/hoofandpawphoto/"
                 target="_blank"

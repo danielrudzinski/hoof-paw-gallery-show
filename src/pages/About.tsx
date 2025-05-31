@@ -1,9 +1,88 @@
+import { Helmet } from 'react-helmet-async';
 import Navigation from '../components/Navigation';
 import { Camera, Award, Heart } from 'lucide-react';
 
 const About = () => {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "O mnie - Wiktoria Putz Photography",
+    "description": "Poznaj historię i pasję, która kryje się za obiektywem. Wiktoria Putz - fotograf z wykształceniem weterynaryjnym, specjalizujący się w fotografii ludzi i zwierząt.",
+    "url": "https://wiktoriaputzphoto.pl/o-mnie",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Wiktoria Putz",
+      "jobTitle": "Fotograf",
+      "description": "Technik weterynarii z pasją do fotografii. Zawodniczka w skokach przez przeszkody, opiekunka trzech kundelków.",
+      "image": "https://wiktoriaputzphoto.pl/zdjeciezaparatem.webp",
+      "knowsAbout": [
+        "Fotografia zwierząt",
+        "Weterynaria",
+        "Jeździectwo",
+        "Skoki przez przeszkody"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Fotograf",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Bydgoszcz"
+        }
+      }
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Strona główna",
+        "item": "https://wiktoriaputzphoto.pl"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "O mnie",
+        "item": "https://wiktoriaputzphoto.pl/o-mnie"
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>O mnie - Wiktoria Putz | Fotograf z Pasją do Zwierząt w Bydgoszczy</title>
+        <meta name="description" content="Poznaj historię i pasję, która kryje się za obiektywem. Wiktoria Putz - technik weterynarii, zawodniczka w skokach przez przeszkody, fotografka ludzi i zwierząt." />
+        <meta name="keywords" content="o mnie fotograf, Wiktoria Putz biografia, fotograf zwierząt Bydgoszcz, technik weterynarii, jeździectwo skoki przez przeszkody" />
+        <link rel="canonical" href="https://wiktoriaputzphoto.pl/o-mnie" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="O mnie - Wiktoria Putz | Fotograf z Pasją do Zwierząt w Bydgoszczy" />
+        <meta property="og:description" content="Poznaj historię i pasję, która kryje się za obiektywem. Wiktoria Putz - technik weterynarii, zawodniczka w skokach przez przeszkody." />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content="https://wiktoriaputzphoto.pl/o-mnie" />
+        <meta property="og:image" content="https://wiktoriaputzphoto.pl/zdjeciezaparatem.webp" />
+        <meta property="profile:first_name" content="Wiktoria" />
+        <meta property="profile:last_name" content="Putz" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="O mnie - Wiktoria Putz | Fotograf z Pasją do Zwierząt w Bydgoszczy" />
+        <meta name="twitter:description" content="Poznaj historię i pasję, która kryje się za obiektywem. Wiktoria Putz - technik weterynarii, zawodniczka w skokach przez przeszkody." />
+        <meta name="twitter:image" content="https://wiktoriaputzphoto.pl/zdjeciezaparatem.webp" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(aboutSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       <Navigation />
       
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Navigation from '../components/Navigation';
 import { Link } from 'react-router-dom';
 
@@ -108,8 +109,83 @@ const Services = () => {
     return () => clearInterval(interval);
   }, [services]);
 
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Usługi Fotograficzne - Wiktoria Putz",
+    "description": "Profesjonalne usługi fotograficzne dostosowane do Twoich potrzeb. Specjalizuję się w fotografii ludzi i zwierząt z pasją i zaangażowaniem.",
+    "url": "https://wiktoriaputzphoto.pl/cennik",
+    "provider": {
+      "@type": "Person",
+      "name": "Wiktoria Putz"
+    },
+    "serviceType": "Photography",
+    "areaServed": {
+      "@type": "City",
+      "name": "Bydgoszcz"
+    },
+    "offers": services.map(service => ({
+      "@type": "Offer",
+      "name": service.title,
+      "description": service.description,
+      "priceCurrency": "PLN",
+      "price": service.id === 'fotoreportaz' ? 'Na zapytanie' :
+              service.id === 'kon' ? '150' :
+              service.id === 'produktowa' ? '300+' :
+              service.id === 'sprzedaz' ? '250+' :
+              service.id === 'psy' ? '150+' : 'Na zapytanie'
+    }))
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Strona główna",
+        "item": "https://wiktoriaputzphoto.pl"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cennik",
+        "item": "https://wiktoriaputzphoto.pl/cennik"
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Cennik - Wiktoria Putz | Ceny Sesji Fotograficznych z Końmi i Psami</title>
+        <meta name="description" content="Cennik sesji fotograficznych - fotoreportaże, sesje z końmi od 150 zł, sesje z psami, fotografia produktowa. Profesjonalne usługi fotograficzne w Bydgoszczy." />
+        <meta name="keywords" content="cennik fotograf Bydgoszcz, ceny sesji zdjęciowych, sesja z koniem cena, fotografia zwierząt cennik, fotoreportaż cena" />
+        <link rel="canonical" href="https://wiktoriaputzphoto.pl/cennik" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Cennik - Wiktoria Putz | Ceny Sesji Fotograficznych z Końmi i Psami" />
+        <meta property="og:description" content="Cennik sesji fotograficznych - fotoreportaże, sesje z końmi od 150 zł, sesje z psami, fotografia produktowa." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://wiktoriaputzphoto.pl/cennik" />
+        <meta property="og:image" content="https://wiktoriaputzphoto.pl/konie/kon1.webp" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Cennik - Wiktoria Putz | Ceny Sesji Fotograficznych z Końmi i Psami" />
+        <meta name="twitter:description" content="Cennik sesji fotograficznych - fotoreportaże, sesje z końmi od 150 zł, sesje z psami, fotografia produktowa." />
+        <meta name="twitter:image" content="https://wiktoriaputzphoto.pl/konie/kon1.webp" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(servicesSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       <Navigation />
       
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
