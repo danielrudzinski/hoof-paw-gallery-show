@@ -59,8 +59,7 @@ export default defineConfig(({ mode }) => ({
           utils: [
             'class-variance-authority',
             'clsx',
-            'tailwind-merge',
-            'framer-motion'
+            'tailwind-merge'
           ]
         },
         

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowLeft, Grid, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import CachedImage from './CachedImage';
 import { useImagePreloader } from '@/hooks/useImagePreloader';
+import { useImageCache } from '@/hooks/useImageCache';
 
 interface PortfolioProps {
   title: string;
@@ -23,13 +24,55 @@ const Portfolio: React.FC<PortfolioProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'slideshow'>('grid');
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
 
   // Preload images with priority
-  const { loadedImages, isLoaded } = useImagePreloader({
+  const { loadedImages, isLoaded, preloadImage } = useImagePreloader({
     images,
     priority: viewMode === 'slideshow' ? 1 : 4,
     preloadNext: viewMode === 'slideshow' ? 3 : 8
   });
+
+  // Image cache for manual preloading
+  const { cacheImage } = useImageCache();
+
+  // Preload image on hover with caching
+  const handleImageHover = useCallback(async (imageSrc: string) => {
+    if (hoveredImage === imageSrc) return;
+    
+    setHoveredImage(imageSrc);
+    
+    // Don't preload if already loaded
+    if (loadedImages.has(imageSrc)) return;
+    
+    try {
+      // Use the preloader to load the image
+      await preloadImage(imageSrc);
+      
+      // Also cache it for immediate lightbox usage
+      const response = await fetch(imageSrc);
+      if (response.ok) {
+        const blob = await response.blob();
+        await cacheImage(imageSrc, blob);
+      }
+    } catch (error) {
+      console.warn('Failed to preload image on hover:', error);
+    }
+  }, [hoveredImage, loadedImages, preloadImage, cacheImage]);
+
+  // Debounced hover handler to avoid excessive preloading
+  const debouncedHover = useCallback(() => {
+    let timeoutId: NodeJS.Timeout;
+    
+    return (imageSrc: string) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        handleImageHover(imageSrc);
+      }, 150); // 150ms delay to avoid preloading on quick mouse movements
+    };
+  }, [handleImageHover]);
+
+  const debouncedHoverHandler = debouncedHover();
 
   const openLightbox = (image: string) => {
     setSelectedImage(image);
@@ -43,14 +86,28 @@ const Portfolio: React.FC<PortfolioProps> = ({
     if (!selectedImage) return;
     const currentIndex = images.indexOf(selectedImage);
     const nextIndex = (currentIndex + 1) % images.length;
-    setSelectedImage(images[nextIndex]);
+    const nextImg = images[nextIndex];
+    setSelectedImage(nextImg);
+    
+    // Preload the next image in sequence for smooth navigation
+    const followingIndex = (nextIndex + 1) % images.length;
+    if (followingIndex !== currentIndex) {
+      debouncedHoverHandler(images[followingIndex]);
+    }
   };
 
   const prevImage = () => {
     if (!selectedImage) return;
     const currentIndex = images.indexOf(selectedImage);
     const prevIndex = (currentIndex - 1 + images.length) % images.length;
-    setSelectedImage(images[prevIndex]);
+    const prevImg = images[prevIndex];
+    setSelectedImage(prevImg);
+    
+    // Preload the previous image in sequence for smooth navigation
+    const precedingIndex = (prevIndex - 1 + images.length) % images.length;
+    if (precedingIndex !== currentIndex) {
+      debouncedHoverHandler(images[precedingIndex]);
+    }
   };
 
   // Auto-advance slideshow
@@ -181,6 +238,8 @@ const Portfolio: React.FC<PortfolioProps> = ({
                   key={index}
                   className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300"
                   onClick={() => openLightbox(image)}
+                  onMouseEnter={() => debouncedHoverHandler(image)}
+                  onFocus={() => debouncedHoverHandler(image)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -202,6 +261,10 @@ const Portfolio: React.FC<PortfolioProps> = ({
                       height={400}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                    {/* Loading indicator for hover preloading */}
+                    {hoveredImage === image && !loadedImages.has(image) && (
+                      <div className="absolute top-2 right-2 w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin bg-black/30 backdrop-blur-sm" />
+                    )}
                   </div>
                 </article>
               ))}
