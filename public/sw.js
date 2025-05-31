@@ -33,6 +33,14 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'FORCE_RECACHE') {
+    handleForceRecache(event.data.resources);
+  } else if (event.data && event.data.type === 'CLEAN_CACHE') {
+    handleCacheCleanup();
+  }
+});
+
 // Fetch event - cache strategy
 self.addEventListener('fetch', (event) => {
   const { request } = event;
@@ -79,5 +87,54 @@ async function handleRequest(request) {
     const cache = await caches.open(STATIC_CACHE);
     const cachedResponse = await cache.match(request);
     return cachedResponse || new Response('Offline', { status: 503 });
+  }
+}
+
+async function handleForceRecache(resources = []) {
+  try {
+    const cache = await caches.open(STATIC_CACHE);
+    
+    // Remove old versions and fetch fresh copies
+    for (const resource of resources) {
+      await cache.delete(resource);
+      try {
+        const response = await fetch(resource, { cache: 'reload' });
+        if (response.ok) {
+          await cache.put(resource, response);
+          console.log(`Recached: ${resource}`);
+        }
+      } catch (error) {
+        console.warn(`Failed to recache: ${resource}`, error);
+      }
+    }
+  } catch (error) {
+    console.error('Force recache failed:', error);
+  }
+}
+
+// Clean up old cache entries
+async function handleCacheCleanup() {
+  try {
+    const imageCache = await caches.open(IMAGE_CACHE);
+    const keys = await imageCache.keys();
+    
+    // Remove cached images older than 7 days
+    const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+    
+    for (const request of keys) {
+      const response = await imageCache.match(request);
+      if (response) {
+        const dateHeader = response.headers.get('date');
+        if (dateHeader) {
+          const cacheDate = new Date(dateHeader).getTime();
+          if (cacheDate < sevenDaysAgo) {
+            await imageCache.delete(request);
+            console.log(`Cleaned old cache entry: ${request.url}`);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Cache cleanup failed:', error);
   }
 }

@@ -52,7 +52,6 @@ const Index = () => {
     "description": "Profesjonalny fotograf w Bydgoszczy specjalizujący się w fotografii ludzi i zwierząt. Sesje portretowe, rodzinne, zwierząt domowych i koni.",
     "url": "https://wiktoriaputzphoto.pl.com",
     "telephone": "+48696919545",
-    "email": "contact@your-domain.com",
     "image": "https://wiktoriaputzphoto.pl/logo2.webp",
     "logo": "https://wiktoriaputzphoto.pl/logo2.webp",
     "priceRange": "$$",

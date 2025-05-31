@@ -19,6 +19,21 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
         registration.update();
       }, 60000); // Check every minute
       
+      // Add periodic recaching functionality
+      setInterval(() => {
+        // Force cache refresh for critical resources
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({ 
+            type: 'FORCE_RECACHE',
+            resources: [
+              '/',
+              '/logo2.webp',
+              '/favicon.ico'
+            ]
+          });
+        }
+      }, 15 * 60 * 1000); // Recache every 15 minutes
+      
       // Listen for updates
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
@@ -34,12 +49,12 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
         }
       });
       
-      // Clean up cache periodically
+      // Clean up cache periodically - keep existing interval but reduce frequency
       setInterval(() => {
         if (navigator.serviceWorker.controller) {
           navigator.serviceWorker.controller.postMessage({ type: 'CLEAN_CACHE' });
         }
-      }, 30 * 60 * 1000); // Clean every 30 minutes
+      }, 60 * 60 * 1000); // Clean every hour instead of 30 minutes
       
     } catch (error) {
       console.error('Service Worker registration failed:', error);

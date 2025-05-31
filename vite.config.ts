@@ -30,6 +30,8 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1000,
     
     rollupOptions: {
+      external: ['sw.js'],
+      
       output: {
         // Create separate chunks for better caching
         manualChunks: {
