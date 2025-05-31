@@ -257,7 +257,7 @@ const Services = () => {
                     <div className="flex items-center justify-between">
                       <span className="text-2xl font-playfair font-bold text-gray-900">
                         {service.id === 'fotoreportaz' && 'Na zapytanie'}
-                        {service.id === 'kon' && '150 zł'}
+                        {service.id === 'kon' && 'Od 150 zł'}
                         {service.id === 'produktowa' && 'Od 300 zł'}
                         {service.id === 'sprzedaz' && 'Od 250 zł'}
                         {service.id === 'psy' && 'Od 150 zł'}

@@ -124,7 +124,7 @@ const Footer = () => {
             <ul className="space-y-1 font-inter text-sm text-gray-300" role="list">
               <li>Sesje portretowe</li>
               <li>Fotografia zwierząt</li>
-              <li>Sesje rodzinne</li>
+              <li>Reportaż sportowy</li>
               <li>Fotografia koni</li>
             </ul>
           </div>

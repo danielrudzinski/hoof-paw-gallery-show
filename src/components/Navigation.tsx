@@ -17,14 +17,11 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
   const isHomePage = location.pathname === '/';
 
-  // Different styles for homepage vs other pages
   const navStyle = isHomePage 
     ? "fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-sm"
     : "fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200";
 
-  const logoStyle = isHomePage
-    ? "text-2xl font-playfair font-bold text-white hover:text-white/80 transition-colors"
-    : "text-2xl font-playfair font-bold text-gray-900 hover:text-gray-700 transition-colors";
+  const logoStyle = "hover:opacity-80 transition-opacity";
 
   const linkActiveStyle = isHomePage
     ? 'text-white border-b-2 border-white'
@@ -40,17 +37,21 @@ const Navigation = () => {
 
   return (
     <nav className={navStyle} role="navigation" aria-label="Nawigacja główna">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-6">
-          {/* Logo */}
-          <Link 
-            to="/" 
-            className={logoStyle}
-            aria-label="Wiktoria Putz Photography - Strona główna"
-          >
-            <h1 className="text-2xl font-playfair font-bold">Wiktoria Putz</h1>
-          </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Logo - pomniejszone o 1/4 */}
+        <Link 
+          to="/" 
+          className={`${logoStyle} absolute top-1/2 left-4 transform -translate-y-1/2 z-[100]`}
+          aria-label="Wiktoria Putz Photography - Strona główna"
+        >
+          <img 
+            src="/logo.png" 
+            alt="Wiktoria Putz Photography Logo" 
+            className="h-60 md:h-72 lg:h-84 w-auto"
+          />
+        </Link>
 
+        <div className="flex justify-end items-center py-6">
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8" role="menubar">
             {navItems.map((item) => (
@@ -58,9 +59,7 @@ const Navigation = () => {
                 key={item.name}
                 to={item.path}
                 className={`font-inter text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.path)
-                    ? linkActiveStyle
-                    : linkInactiveStyle
+                  isActive(item.path) ? linkActiveStyle : linkInactiveStyle
                 }`}
                 aria-label={item.ariaLabel}
                 aria-current={isActive(item.path) ? 'page' : undefined}
