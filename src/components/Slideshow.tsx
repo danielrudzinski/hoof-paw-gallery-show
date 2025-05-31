@@ -88,7 +88,8 @@ const Slideshow = () => {
             loading={index === 0 ? "eager" : "lazy"}
             width="1920"
             height="1080"
-            fetchPriority={index === 0 ? "high" : "low"}
+            // Fix: Use lowercase fetchpriority instead of fetchPriority
+            {...(index === 0 ? { fetchpriority: "high" } : { fetchpriority: "low" })}
           />
           <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
         </div>

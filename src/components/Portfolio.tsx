@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Grid, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import CachedImage from './CachedImage';
+import { useImagePreloader } from '@/hooks/useImagePreloader';
 
 interface PortfolioProps {
   title: string;
@@ -21,6 +23,13 @@ const Portfolio: React.FC<PortfolioProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'slideshow'>('grid');
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  // Preload images with priority
+  const { loadedImages, isLoaded } = useImagePreloader({
+    images,
+    priority: viewMode === 'slideshow' ? 1 : 4,
+    preloadNext: viewMode === 'slideshow' ? 3 : 8
+  });
 
   const openLightbox = (image: string) => {
     setSelectedImage(image);
@@ -78,16 +87,44 @@ const Portfolio: React.FC<PortfolioProps> = ({
     }
   }, [selectedImage, images]);
 
+  // Generate structured data for image gallery
+  const generateImageGallerySchema = () => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": title,
+      "description": description,
+      "image": images.map((image, index) => ({
+        "@type": "ImageObject",
+        "contentUrl": `https://wiktoriaputzphoto.pl${image}`,
+        "name": `${title} - Zdjęcie ${index + 1}`,
+        "description": `Profesjonalne zdjęcie z galerii: ${title}`,
+        "creator": {
+          "@type": "Person",
+          "name": "Wiktoria Putz"
+        }
+      }))
+    };
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <article className="min-h-screen bg-white">
+      {/* SEO Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateImageGallerySchema())
+        }}
+      />
+
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <header className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-4">
-              <Link to={backLink}>
+              <Link to={backLink} aria-label={backText}>
                 <Button variant="ghost" size="sm" className="gap-2">
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4" aria-hidden="true" />
                   {backText}
                 </Button>
               </Link>
@@ -101,14 +138,16 @@ const Portfolio: React.FC<PortfolioProps> = ({
               </div>
             </div>
             {images.length > 0 && (
-              <div className="flex gap-2">
+              <div className="flex gap-2" role="group" aria-label="Opcje wyświetlania galerii">
                 <Button
                   variant={viewMode === 'grid' ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setViewMode('grid')}
                   className="gap-2"
+                  aria-pressed={viewMode === 'grid'}
+                  aria-label="Widok siatki"
                 >
-                  <Grid className="w-4 h-4" />
+                  <Grid className="w-4 h-4" aria-hidden="true" />
                   Galeria
                 </Button>
                 <Button
@@ -116,104 +155,121 @@ const Portfolio: React.FC<PortfolioProps> = ({
                   size="sm"
                   onClick={() => setViewMode('slideshow')}
                   className="gap-2"
+                  aria-pressed={viewMode === 'slideshow'}
+                  aria-label="Widok pokazu slajdów"
                 >
-                  <ImageIcon className="w-4 h-4" />
+                  <ImageIcon className="w-4 h-4" aria-hidden="true" />
                   Pokaz slajdów
                 </Button>
               </div>
             )}
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 py-8">
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
         {images.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-gray-500 text-lg">Brak zdjęć w galerii.</p>
           </div>
         ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300"
-                onClick={() => openLightbox(image)}
-              >
-                <div className="aspect-square relative overflow-hidden">
-                  <img
-                    src={image}
-                    alt={`Zdjęcie ${index + 1}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                    onError={(e) => {
-                      console.error(`Failed to load image: ${image}`);
-                      e.currentTarget.src = '/placeholder.svg';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="max-w-4xl mx-auto">
-            <div className="aspect-video relative overflow-hidden rounded-lg bg-white shadow-lg">
+          <section aria-label="Galeria zdjęć w widoku siatki">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {images.map((image, index) => (
-                <div
+                <article
                   key={index}
-                  className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-                    index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
-                  }`}
+                  className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300"
+                  onClick={() => openLightbox(image)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openLightbox(image);
+                    }
+                  }}
+                  aria-label={`Otwórz zdjęcie ${index + 1} w powiększeniu`}
                 >
-                  <img
-                    src={image}
-                    alt={`Slide ${index + 1}`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      console.error(`Failed to load image: ${image}`);
-                      e.currentTarget.src = '/placeholder.svg';
-                    }}
+                  <div className="aspect-square relative overflow-hidden">
+                    <CachedImage
+                      src={image}
+                      alt={`${title} - Zdjęcie ${index + 1}`}
+                      className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+                      priority={index < 4}
+                      lazy={index >= 4}
+                      width={400}
+                      height={400}
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section aria-label="Pokaz slajdów">
+            <div className="max-w-4xl mx-auto">
+              <div className="aspect-video relative overflow-hidden rounded-lg bg-white shadow-lg">
+                {images.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+                      index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    aria-hidden={index !== currentSlideIndex}
+                  >
+                    <CachedImage
+                      src={image}
+                      alt={`${title} - Slajd ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      priority={index <= 2}
+                      lazy={index > 2}
+                      width={800}
+                      height={450}
+                    />
+                  </div>
+                ))}
+              </div>
+              {/* Slideshow indicators */}
+              <nav aria-label="Nawigacja pokazu slajdów" className="flex justify-center mt-4 gap-2">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlideIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Przejdź do slajdu ${index + 1}`}
+                    aria-current={index === currentSlideIndex ? 'true' : 'false'}
                   />
-                </div>
-              ))}
+                ))}
+              </nav>
             </div>
-            {/* Slideshow indicators */}
-            <div className="flex justify-center mt-4 gap-2">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlideIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300'
-                  }`}
-                  aria-label={`Przejdź do slajdu ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
+          </section>
         )}
-      </div>
+      </main>
 
       {/* Lightbox */}
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 overflow-auto"
           onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Podgląd zdjęcia"
         >
           <div 
             className="relative w-full h-full flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <CachedImage
               src={selectedImage}
-              alt="Podgląd zdjęcia"
+              alt={`${title} - Podgląd zdjęcia`}
               className="max-w-full max-h-full object-contain w-auto h-auto"
               style={{ maxWidth: '95vw', maxHeight: '95vh' }}
-              onError={(e) => {
-                console.error(`Failed to load image in lightbox: ${selectedImage}`);
-                e.currentTarget.src = '/placeholder.svg';
-              }}
+              priority={true}
+              lazy={false}
             />
             <button
               onClick={closeLightbox}
@@ -243,7 +299,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
           </div>
         </div>
       )}
-    </div>
+    </article>
   );
 };
 
