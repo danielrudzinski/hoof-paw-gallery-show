@@ -8,6 +8,7 @@ import Portfolio from "./pages/Portfolio";
 import PortfolioZwierzeta from "./pages/PortfolioZwierzeta";
 import PortfolioLudzie from "./pages/PortfolioLudzie";
 import PortfolioKonie from "./pages/PortfolioKonie";
+import Reportaz from "./pages/Reportaz";
 import Pricing from "./pages/Pricing";
 import Services from "./pages/Services";
 import About from "./pages/About";
@@ -31,6 +32,7 @@ const AppContent = () => {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/psyikoty" element={<PortfolioZwierzeta />} />
           <Route path="/portfolio/konie-jezdziectwo" element={<PortfolioKonie />} />
+          <Route path="/miniaturki-reportaz" element={<Reportaz />} />
           <Route path="/cennik" element={<Pricing />} />
           <Route path="/kontakt" element={<Services />} />
           <Route path="/o-mnie" element={<About />} />

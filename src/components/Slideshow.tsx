@@ -10,8 +10,6 @@ const Slideshow = () => {
     { src: '/konie/kon6.webp', alt: 'Fotografia konia w ruchu - sesja equestrian' },
     { src: '/konie/kon7.webp', alt: 'Artystyczne zdjęcie konia - fotografia zwierząt' },
     { src: '/psy/dog.webp', alt: 'Sesja fotograficzna psa - profesjonalny fotograf zwierząt' },
-    { src: '/psy/dog2.webp', alt: 'Portret psa - fotografia psów Bydgoszcz' },
-    { src: '/psy/dog3.webp', alt: 'Zdjęcie psa w naturze - sesja fotograficzna' },
     { src: '/psy/dog4.webp', alt: 'Profesjonalne zdjęcie psa - fotograf zwierząt' },
     { src: '/psy/dog5.webp', alt: 'Artystyczny portret psa - fotografia zwierząt' },
     { src: '/jezdziectwo/jazda1.webp', alt: 'Fotoreportaż z zawodów jeździeckich - sport equestrian' },

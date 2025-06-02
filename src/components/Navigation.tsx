@@ -38,14 +38,14 @@ const Navigation = () => {
   return (
     <nav className={navStyle} role="navigation" aria-label="Nawigacja główna">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Logo - pomniejszone o 1/4 */}
+        {/* Logo - fixed positioning */}
         <Link 
           to="/" 
-          className={`${logoStyle} absolute top-1/2 left-4 transform -translate-y-1/2 z-[100]`}
+          className={`${logoStyle} absolute top-1/2 left-4 transform -translate-y-1/2 z-20`}
           aria-label="Wiktoria Putz Photography - Strona główna"
         >
           <img 
-            src="/logo.png" 
+            src={isHomePage ? "/logo.webp" : "/logo2.webp"}
             alt="Wiktoria Putz Photography Logo" 
             className="h-60 md:h-72 lg:h-84 w-auto"
           />
@@ -74,7 +74,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={mobileButtonStyle}
+              className={`${mobileButtonStyle} relative z-[100]`}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
               aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
@@ -83,37 +83,37 @@ const Navigation = () => {
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div 
-            id="mobile-menu"
-            className={`md:hidden pb-4 mx-4 ${isHomePage ? 'bg-black/50 backdrop-blur-md rounded-lg' : 'bg-white/95 backdrop-blur-md rounded-lg border border-gray-200'}`}
-            role="menu"
-            aria-label="Menu mobilne"
-          >
-            <div className="flex flex-col space-y-3 p-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`font-inter text-sm font-medium transition-colors duration-200 ${
-                    isActive(item.path)
-                      ? (isHomePage ? 'text-white font-semibold' : 'text-gray-900 font-semibold')
-                      : (isHomePage ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-900')
-                  }`}
-                  aria-label={item.ariaLabel}
-                  aria-current={isActive(item.path) ? 'page' : undefined}
-                  role="menuitem"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Navigation - positioned outside to avoid overlap */}
+      {isOpen && (
+        <div 
+          id="mobile-menu"
+          className={`md:hidden fixed top-full left-0 right-0 z-[90] mx-4 pb-4 ${isHomePage ? 'bg-black/50 backdrop-blur-md rounded-lg' : 'bg-white/95 backdrop-blur-md rounded-lg border border-gray-200'}`}
+          role="menu"
+          aria-label="Menu mobilne"
+        >
+          <div className="flex flex-col space-y-3 p-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                onClick={() => setIsOpen(false)}
+                className={`font-inter text-sm font-medium transition-colors duration-200 ${
+                  isActive(item.path)
+                    ? (isHomePage ? 'text-white font-semibold' : 'text-gray-900 font-semibold')
+                    : (isHomePage ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-900')
+                }`}
+                aria-label={item.ariaLabel}
+                aria-current={isActive(item.path) ? 'page' : undefined}
+                role="menuitem"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
