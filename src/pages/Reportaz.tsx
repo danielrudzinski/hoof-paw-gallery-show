@@ -10,43 +10,43 @@ const Reportaz = () => {
   const reportageGalleries = [
     {
       id: 'reportaz-1',
-      title: 'Mierzęcin Horse Show',
-      date: '17 maja 2025',
-      thumbnail: '/jezdziectwo/jazda1.webp',
-      description: 'klasa mini LL do LL',
-      galleryUrl: 'https://pg.mafelo.com/gallery/jzmpqzzd',
+      title: 'Kwalifikacje do CSiO Sopot Young Stars 2025****',
+      date: '31 maja 2025',
+      thumbnail: '/jezdziectwo/jazda10.webp', 
+      description: 'Zawody Ogólnopolskie Dzieci i Młodzieży, Zawody Regionalne i Towarzyskie w skokach przez przeszkody',
+      galleryUrl: 'https://pg.mafelo.com/gallery/mpxyqyex',
       password: '1234',
-      photos: 45
+      photos: 200 + '+'
     },
     {
-      id: 'reportaz-2', 
+      id: 'reportaz-2',
+      title: 'Mierzęcin Horse Show',
+      date: '18 maja 2025', 
+      thumbnail: '/jezdziectwo/jazda13.webp',
+      description: 'Klasa LL-P',
+      galleryUrl: 'https://pg.mafelo.com/gallery/nedwawpz',
+      password: '1234',
+      photos: 200 + '+'
+    },
+    {
+      id: 'reportaz-3', 
       title: 'Mierzęcin Horse Show',
       date: '17 maja 2025',
       thumbnail: '/jezdziectwo/jazda2.webp',
       description: 'klasa L-C',
       galleryUrl: 'https://pg.mafelo.com/gallery/weqydang',
       password: '1234',
-      photos: 38
-    },
-    {
-      id: 'reportaz-3',
-      title: 'Mierzęcin Horse Show',
-      date: '18 maja 2025', 
-      thumbnail: '/konie/kon1.webp',
-      description: 'Klasa LL-P',
-      galleryUrl: 'https://pg.mafelo.com/gallery/nedwawpz',
-      password: '1234',
-      photos: 52
+      photos: 200 + '+'
     },
     {
       id: 'reportaz-4',
-      title: 'Kwalifikacje do CSiO Sopot Young Stars 2025****',
-      date: '-',
-      thumbnail: '/psy/dog4.webp', 
-      description: 'Zawody Ogólnopolskie Dzieci i Młodzieży, Zawody Regionalne i Towarzyskie w skokach przez przeszkody',
-      galleryUrl: 'https://pg.mafelo.com/gallery/mpxyqyex',
+      title: 'Mierzęcin Horse Show',
+      date: '17 maja 2025',
+      thumbnail: '/jezdziectwo/jazda1.webp',
+      description: 'klasa mini LL do LL',
+      galleryUrl: 'https://pg.mafelo.com/gallery/jzmpqzzd',
       password: '1234',
-      photos: 41
+      photos: 200 + '+'
     },
   ];
 
@@ -274,7 +274,7 @@ const Reportaz = () => {
                   <Eye className="w-6 h-6 text-gray-700" />
                 </div>
                 <p className="text-sm">
-                  <strong>3. Przeglądaj</strong> i pobieraj swoje zdjęcia
+                  <strong>3. Przeglądaj</strong> i zamawiaj swoje zdjęcia
                 </p>
               </div>
             </div>
