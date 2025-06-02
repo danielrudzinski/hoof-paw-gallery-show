@@ -35,25 +35,58 @@ const Navigation = () => {
     ? "text-white/80 hover:text-white transition-colors"
     : "text-gray-600 hover:text-gray-900 transition-colors";
 
+  // Wybór odpowiedniego logo w zależności od strony
+  const logoSrc = isHomePage ? "/logo-white.png" : "/logo-dark.png";
+  const logoAlt = isHomePage ? "Wiktoria Putz Photography Logo - białe" : "Wiktoria Putz Photography Logo - ciemne";
+
   return (
     <nav className={navStyle} role="navigation" aria-label="Nawigacja główna">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Logo - pomniejszone o 1/4 */}
+        {/* DESKTOP Logo - duże jak wcześniej */}
         <Link 
           to="/" 
-          className={`${logoStyle} absolute top-1/2 left-4 transform -translate-y-1/2 z-[100]`}
+          className={`${logoStyle} hidden md:block absolute top-1/2 left-4 transform -translate-y-1/2 z-[100]`}
           aria-label="Wiktoria Putz Photography - Strona główna"
         >
           <img 
-            src="/logo.png" 
-            alt="Wiktoria Putz Photography Logo" 
+            src={logoSrc}
+            alt={logoAlt}
             className="h-60 md:h-72 lg:h-84 w-auto"
           />
         </Link>
 
-        <div className="flex justify-end items-center py-6">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8" role="menubar">
+        {/* MOBILE - cały navbar w flexbox */}
+        <div className="md:hidden flex justify-between items-center py-4 h-24">
+          {/* MOBILE Logo - 3x większe z overflow hidden */}
+          <div className="flex-shrink-0 overflow-hidden">
+            <Link 
+              to="/" 
+              className={`${logoStyle} block z-[100]`}
+              aria-label="Wiktoria Putz Photography - Strona główna"
+            >
+              <img 
+                src={logoSrc}
+                alt={logoAlt}
+                className="h-48 sm:h-56 w-auto"
+              />
+            </Link>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            className={`p-2 flex-shrink-0 ${mobileButtonStyle}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
+          >
+            {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+          </button>
+        </div>
+
+        {/* DESKTOP - menu po prawej jak wcześniej */}
+        <div className="hidden md:flex justify-end items-center py-6">
+          <div className="flex space-x-8" role="menubar">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -69,26 +102,13 @@ const Navigation = () => {
               </Link>
             ))}
           </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={mobileButtonStyle}
-              aria-expanded={isOpen}
-              aria-controls="mobile-menu"
-              aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
-            >
-              {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-            </button>
-          </div>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
           <div 
             id="mobile-menu"
-            className={`md:hidden pb-4 mx-4 ${isHomePage ? 'bg-black/50 backdrop-blur-md rounded-lg' : 'bg-white/95 backdrop-blur-md rounded-lg border border-gray-200'}`}
+            className={`md:hidden absolute top-full left-0 right-0 mx-4 mt-2 ${isHomePage ? 'bg-black/90 backdrop-blur-md rounded-lg' : 'bg-white/95 backdrop-blur-md rounded-lg border border-gray-200'}`}
             role="menu"
             aria-label="Menu mobilne"
           >
@@ -98,7 +118,7 @@ const Navigation = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`font-inter text-sm font-medium transition-colors duration-200 ${
+                  className={`font-inter text-sm font-medium transition-colors duration-200 py-2 ${
                     isActive(item.path)
                       ? (isHomePage ? 'text-white font-semibold' : 'text-gray-900 font-semibold')
                       : (isHomePage ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-900')
