@@ -9,6 +9,7 @@ const Navigation = () => {
   const navItems = [
     { name: 'Home', path: '/', ariaLabel: 'Strona główna' },
     { name: 'Galeria', path: '/portfolio', ariaLabel: 'Portfolio zdjęć' },
+    { name: 'Reportaże', path: '/miniaturki-reportaz', ariaLabel: 'Miniaturki reportaży' },
     { name: 'Oferta', path: '/cennik', ariaLabel: 'Cennik usług fotograficznych' },
     { name: 'Kontakt', path: '/kontakt', ariaLabel: 'Informacje kontaktowe' },
     { name: 'O mnie', path: '/o-mnie', ariaLabel: 'Informacje o fotografie' },
