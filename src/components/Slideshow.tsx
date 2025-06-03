@@ -2,26 +2,25 @@ import { useState, useEffect } from 'react';
 
 const Slideshow = () => {
   const images = [
-    { src: '/psy/bulldog.webp', alt: 'Zdjęcie buldoga francuskiego - sesja fotograficzna psów' },
-    { src: '/koty/kot1.webp', alt: 'Portret kota - profesjonalna fotografia zwierząt' },
-    { src: '/konie/kon1.webp', alt: 'Zdjęcie konia - fotografia equestrian Bydgoszcz' },
-    { src: '/konie/kon2.webp', alt: 'Portret konia - sesja fotograficzna koni' },
-    { src: '/konie/kon5.webp', alt: 'Profesjonalne zdjęcie konia - fotograf Bydgoszcz' },
-    { src: '/konie/kon6.webp', alt: 'Fotografia konia w ruchu - sesja equestrian' },
-    { src: '/konie/kon7.webp', alt: 'Artystyczne zdjęcie konia - fotografia zwierząt' },
-    { src: '/psy/dog.webp', alt: 'Sesja fotograficzna psa - profesjonalny fotograf zwierząt' },
-    { src: '/psy/dog4.webp', alt: 'Profesjonalne zdjęcie psa - fotograf zwierząt' },
-    { src: '/psy/dog5.webp', alt: 'Artystyczny portret psa - fotografia zwierząt' },
-    { src: '/jezdziectwo/jazda1.webp', alt: 'Fotoreportaż z zawodów jeździeckich - sport equestrian' },
-    { src: '/jezdziectwo/jazda2.webp', alt: 'Zdjęcie z treningu jeździeckiego - fotografia sportowa' },
-    { src: '/jezdziectwo/jazda3.webp', alt: 'Skoki przez przeszkody - fotoreportaż jeździecki' },
-    { src: '/jezdziectwo/jazda4.webp', alt: 'Zawody jeździeckie - profesjonalna fotografia sportowa' },
-    { src: '/jezdziectwo/jazda5.webp', alt: 'Jeździec na koniu - fotografia equestrian' },
-    { src: '/jezdziectwo/jazda6.webp', alt: 'Dynamiczne zdjęcie z zawodów konnych' },
-    { src: '/jezdziectwo/jazda7.webp', alt: 'Fotoreportaż z treningów jeździeckich' },
-    { src: '/jezdziectwo/jazda8.webp', alt: 'Profesjonalne zdjęcia z zawodów konnych' },
-    { src: '/jezdziectwo/jazda9.webp', alt: 'Sesja fotograficzna jeździec z koniem' },
-    { src: '/jezdziectwo/jazda10.webp', alt: 'Artystyczne zdjęcie z jeździectwa - fotografia sportowa' },
+    { src: '/glowna/1.png', alt: 'Zdjęcie 1 - portfolio fotografii' },
+    { src: '/glowna/2.png', alt: 'Zdjęcie 2 - portfolio fotografii' },
+    { src: '/glowna/3.jpg', alt: 'Zdjęcie 3 - portfolio fotografii' },
+    { src: '/glowna/4.png', alt: 'Zdjęcie 4 - portfolio fotografii' },
+    { src: '/glowna/5.png', alt: 'Zdjęcie 5 - portfolio fotografii' },
+    { src: '/glowna/6.jpg', alt: 'Zdjęcie 6 - portfolio fotografii' },
+    { src: '/glowna/1.png', alt: 'Zdjęcie 1 - portfolio fotografii' },
+    { src: '/glowna/2.png', alt: 'Zdjęcie 2 - portfolio fotografii' },
+    { src: '/glowna/3.jpg', alt: 'Zdjęcie 3 - portfolio fotografii' },
+    { src: '/glowna/4.png', alt: 'Zdjęcie 4 - portfolio fotografii' },
+    { src: '/glowna/5.png', alt: 'Zdjęcie 5 - portfolio fotografii' },
+    { src: '/glowna/6.jpg', alt: 'Zdjęcie 6 - portfolio fotografii' },
+    { src: '/glowna/1.png', alt: 'Zdjęcie 1 - portfolio fotografii' },
+    { src: '/glowna/2.png', alt: 'Zdjęcie 2 - portfolio fotografii' },
+    { src: '/glowna/3.jpg', alt: 'Zdjęcie 3 - portfolio fotografii' },
+    { src: '/glowna/4.png', alt: 'Zdjęcie 4 - portfolio fotografii' },
+    { src: '/glowna/5.png', alt: 'Zdjęcie 5 - portfolio fotografii' },
+    { src: '/glowna/6.jpg', alt: 'Zdjęcie 6 - portfolio fotografii' },
+    { src: '/glowna/1.png', alt: 'Zdjęcie 1 - portfolio fotografii' },
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -89,7 +88,7 @@ const Slideshow = () => {
             // Fix: Use lowercase fetchpriority instead of fetchPriority
             {...(index === 0 ? { fetchpriority: "high" } : { fetchpriority: "low" })}
           />
-          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+
         </div>
       ))}
 

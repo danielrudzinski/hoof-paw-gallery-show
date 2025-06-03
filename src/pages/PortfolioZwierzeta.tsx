@@ -11,6 +11,20 @@ const PortfolioZwierzeta = () => {
     '/psy/dog3.webp',
     '/psy/dog4.webp',
     '/psy/dog5.webp',
+    '/psy/1.png',
+    '/psy/2.png',
+    '/psy/3.png',
+    '/psy/4.png',
+    '/psy/5.png',
+    '/psy/6.png',
+    '/psy/7.png',
+    '/psy/8.png',
+    '/psy/9.png',
+    '/psy/10.jpg',
+    '/psy/11.jpg',
+    '/psy/12.jpg',
+    '/psy/13.jpg',
+    '/psy/14.jpg'
   ];
 
   const petsPortfolioSchema = {
