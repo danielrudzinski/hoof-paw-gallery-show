@@ -18,15 +18,13 @@ const Services = () => {
       title: 'Fotoreportaż z zawodów i treningów',
       description: 'Dynamiczne ujęcia pełne emocji i pasji! Uchwycę najważniejsze momenty zawodów, a także kulisy treningów – z naturalnością i wyczuciem chwili. Idealna pamiątka i świetny materiał promocyjny.',
       images: [
-        '/jezdziectwo/jazda1.webp',
-        '/jezdziectwo/jazda2.webp',
-        '/jezdziectwo/jazda7.webp',
-        '/jezdziectwo/jazda8.webp',
-        '/jezdziectwo/jazda10.webp',
-        '/jezdziectwo/jazda6.webp',
-        '/jezdziectwo/jazda12.webp',
-        '/jezdziectwo/jazda13.webp',
-      ],
+  '/jezdziectwo/1.jpg',
+  '/jezdziectwo/2.jpg',
+  '/jezdziectwo/3.jpg',
+  '/jezdziectwo/4.jpg',
+  '/jezdziectwo/5.jpg',
+],
+
       reverse: false
     },
     {
@@ -38,13 +36,8 @@ const Services = () => {
         '/konie/kon4.webp',
         '/konie/kon3.webp',
         '/konie/kon5.webp',
-        '/konie/kon6.webp',
-        '/konie/kon7.webp',
-        '/konie/kon8.webp',
-        '/konie/kon9.webp',
-        '/konie/kon10.webp',
-        '/konie/kon11.webp',
-        '/konie/kon19.webp'
+        '/konie/kon6.webp'
+        
       ],
       reverse: true
     },
@@ -53,15 +46,13 @@ const Services = () => {
       title: 'Sesja produktowa',
       description: 'Profesjonalne zdjęcia Twoich produktów – estetyczne, spójne i dopasowane do marki. Idealne do sklepu internetowego, social mediów i materiałów reklamowych.',
       images: [
-        '/konie/kon17.webp',
-        '/konie/kon2.webp',
-        '/konie/kon18.webp',
-        '/koty/kot1.webp',
-        '/psy/bulldog.webp',
-        '/psy/dog2.webp',
-        '/psy/dog3.webp',
-        '/psy/dog5.webp'
-      ],
+  '/produkt/1.png',
+  '/produkt/2.png',
+  '/produkt/3.png',
+  '/produkt/4.png',
+  '/produkt/5.png'
+],
+
       reverse: false
     },
     {
@@ -69,13 +60,13 @@ const Services = () => {
       title: 'Sesja sprzedażowa koni',
       description: 'Zadbam o to, by Twój koń prezentował się jak najlepiej! Sesja podkreślająca sylwetkę, ruch i charakter konia – idealna do ogłoszeń sprzedażowych i katalogów hodowlanych.',
       images: [
-        '/konie/kon16.webp',
-        '/konie/kon17.webp',
-        '/konie/kon18.webp',
-        '/konie/kon19.webp',
-        '/konie/kon20.webp',
-        '/konie/kon21.webp'
-      ],
+  '/sell/1.jpg',
+  '/sell/2.png',
+  '/sell/3.jpg',
+  '/sell/4.jpg',
+  '/sell/5.jpg'
+],
+
       reverse: true
     },
     {
