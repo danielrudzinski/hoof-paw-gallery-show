@@ -12,7 +12,7 @@ const Reportaz = () => {
       id: 'reportaz-1',
       title: 'Kwalifikacje do CSiO Sopot Young Stars 2025****',
       date: '31 maja 2025',
-      thumbnail: '/glowna/s2.png', 
+      thumbnail: '/glowna/s2.webp', 
       description: 'Zawody Ogólnopolskie Dzieci i Młodzieży, Zawody Regionalne i Towarzyskie w skokach przez przeszkody',
       galleryUrl: 'https://pg.mafelo.com/gallery/mpxyqyex',
       password: '1234',

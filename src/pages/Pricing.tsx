@@ -18,11 +18,11 @@ const Services = () => {
       title: 'Fotoreportaż z zawodów i treningów',
       description: 'Dynamiczne ujęcia pełne emocji i pasji! Uchwycę najważniejsze momenty zawodów, a także kulisy treningów – z naturalnością i wyczuciem chwili. Idealna pamiątka i świetny materiał promocyjny.',
       images: [
-  '/jezdziectwo/1.jpg',
-  '/jezdziectwo/2.jpg',
-  '/jezdziectwo/3.jpg',
-  '/jezdziectwo/4.jpg',
-  '/jezdziectwo/5.jpg',
+  '/jezdziectwo/1.webp',
+  '/jezdziectwo/2.webp',
+  '/jezdziectwo/3.webp',
+  '/jezdziectwo/4.webp',
+  '/jezdziectwo/5.webp',
 ],
 
       reverse: false
@@ -46,11 +46,11 @@ const Services = () => {
       title: 'Sesja produktowa',
       description: 'Profesjonalne zdjęcia Twoich produktów – estetyczne, spójne i dopasowane do marki. Idealne do sklepu internetowego, social mediów i materiałów reklamowych.',
       images: [
-  '/produkt/1.png',
-  '/produkt/2.png',
-  '/produkt/3.png',
-  '/produkt/4.png',
-  '/produkt/5.png'
+  '/produkt/1.webp',
+  '/produkt/2.webp',
+  '/produkt/3.webp',
+  '/produkt/4.webp',
+  '/produkt/5.webp'
 ],
 
       reverse: false
@@ -60,11 +60,11 @@ const Services = () => {
       title: 'Sesja sprzedażowa koni',
       description: 'Zadbam o to, by Twój koń prezentował się jak najlepiej! Sesja podkreślająca sylwetkę, ruch i charakter konia – idealna do ogłoszeń sprzedażowych i katalogów hodowlanych.',
       images: [
-  '/sell/1.jpg',
-  '/sell/2.png',
-  '/sell/3.jpg',
-  '/sell/4.jpg',
-  '/sell/5.jpg'
+  '/sell/1.webp',
+  '/sell/2.webp',
+  '/sell/3.webp',
+  '/sell/4.webp',
+  '/sell/5.webp'
 ],
 
       reverse: true

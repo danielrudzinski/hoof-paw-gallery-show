@@ -11,20 +11,17 @@ const PortfolioZwierzeta = () => {
     '/psy/dog3.webp',
     '/psy/dog4.webp',
     '/psy/dog5.webp',
-    '/psy/1.png',
-    '/psy/2.png',
-    '/psy/3.png',
-    '/psy/4.png',
-    '/psy/5.png',
-    '/psy/6.png',
-    '/psy/7.png',
-    '/psy/8.png',
-    '/psy/9.png',
-    '/psy/10.jpg',
-    '/psy/11.jpg',
-    '/psy/12.jpg',
-    '/psy/13.jpg',
-    '/psy/14.jpg'
+    '/psy/1.webp',
+    '/psy/2.webp',
+    '/psy/3.webp',
+    '/psy/4.webp',
+    '/psy/5.webp',
+    '/psy/6.webp',
+    '/psy/7.webp',
+    '/psy/8.webp',
+    '/psy/9.webp',
+    '/psy/13.webp',
+    '/psy/14.webp'
   ];
 
   const petsPortfolioSchema = {
