@@ -251,7 +251,7 @@ const Services = () => {
                         {service.id === 'kon' && 'Od 150 zł'}
                         {service.id === 'produktowa' && 'Od 300 zł'}
                         {service.id === 'sprzedaz' && 'Od 250 zł'}
-                        {service.id === 'psy' && 'Od 150 zł'}
+                        {service.id === 'psy' && 'Od 250 zł'}
                       </span>
                       <span className="text-sm text-gray-500 font-inter">za sesję</span>
                     </div>
