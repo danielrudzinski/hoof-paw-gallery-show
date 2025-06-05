@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useImageCache } from '@/hooks/useImageCache';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 interface CachedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -8,6 +7,7 @@ interface CachedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   lazy?: boolean;
   priority?: boolean;
   onLoadComplete?: () => void;
+  className?: string;
 }
 
 const CachedImage: React.FC<CachedImageProps> = ({
@@ -20,118 +20,104 @@ const CachedImage: React.FC<CachedImageProps> = ({
   className = '',
   ...props
 }) => {
-  const [imageSrc, setImageSrc] = useState<string>(priority ? src : '');
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [isInView, setIsInView] = useState(!lazy);
-  const imgRef = useRef<HTMLImageElement>(null);
+  // Fix: Priority images should start loading immediately
+  const [hasStartedLoading, setHasStartedLoading] = useState(priority || !lazy);
+  const imgRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  
-  const { isSupported, cacheImage, getCachedImage } = useImageCache();
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const hasObserved = useRef(false);
+  const isLoadingRef = useRef(false);
 
-  // Intersection Observer for lazy loading
+  // Intersection Observer for lazy loading - only for non-priority images
   useEffect(() => {
-    if (!lazy || isInView) return;
+    // Don't setup observer for priority images or when already started loading
+    if (!lazy || priority || hasStartedLoading || hasObserved.current) return;
+
+    const currentRef = imgRef.current;
+    if (!currentRef) return;
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
+        if (entry.isIntersecting && !hasObserved.current && !isLoadingRef.current) {
+          hasObserved.current = true;
+          isLoadingRef.current = true;
+          setHasStartedLoading(true);
           observerRef.current?.disconnect();
         }
       },
       {
-        rootMargin: '50px 0px',
+        rootMargin: '100px 0px',
         threshold: 0.1
       }
     );
 
-    if (imgRef.current) {
-      observerRef.current.observe(imgRef.current);
-    }
+    observerRef.current.observe(currentRef);
 
-    return () => observerRef.current?.disconnect();
-  }, [lazy, isInView]);
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [lazy, priority, hasStartedLoading]);
 
-  // Load image when in view or if priority
+  // Force loading for priority images
   useEffect(() => {
-    if ((isInView || priority) && !imageSrc && src) {
-      loadImage();
+    if (priority && !hasStartedLoading && !isLoadingRef.current) {
+      isLoadingRef.current = true;
+      setHasStartedLoading(true);
     }
-  }, [isInView, priority, src]);
+  }, [priority, hasStartedLoading]);
 
-  const loadImage = async () => {
-    try {
-      // Try to get from IndexedDB cache first
-      if (isSupported) {
-        const cachedUrl = await getCachedImage(src);
-        if (cachedUrl) {
-          setImageSrc(cachedUrl);
-          return;
-        }
-      }
-
-      // If not in cache, fetch from network
-      const response = await fetch(src);
-      if (!response.ok) throw new Error('Network response was not ok');
-      
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      
-      // Cache the blob if IndexedDB is supported
-      if (isSupported) {
-        await cacheImage(src, blob);
-      }
-      
-      setImageSrc(objectUrl);
-    } catch (error) {
-      console.error('Failed to load image:', error);
-      setImageSrc(src); // Fallback to original src
+  const handleLoad = useCallback(() => {
+    if (!isLoaded) {
+      setIsLoaded(true);
+      isLoadingRef.current = false;
+      onLoadComplete?.();
     }
-  };
+  }, [isLoaded, onLoadComplete]);
 
-  const handleLoad = () => {
-    setIsLoaded(true);
-    onLoadComplete?.();
-  };
-
-  const handleError = () => {
+  const handleError = useCallback(() => {
+    console.warn('Image failed to load:', src);
     if (!hasError) {
       setHasError(true);
-      setImageSrc(fallbackSrc);
-    }
-  };
-
-  // Cleanup object URLs to prevent memory leaks
-  useEffect(() => {
-    return () => {
-      if (imageSrc && imageSrc.startsWith('blob:')) {
-        URL.revokeObjectURL(imageSrc);
+      isLoadingRef.current = false;
+      if (imageRef.current && !imageRef.current.src.includes(fallbackSrc)) {
+        imageRef.current.src = fallbackSrc;
       }
-    };
-  }, [imageSrc]);
+    }
+  }, [hasError, fallbackSrc, src]);
+
+  const imageSrc = hasError ? fallbackSrc : src;
 
   return (
     <div className={`relative overflow-hidden ${className}`} ref={imgRef}>
-      {/* Placeholder/Loading state */}
-      {!isLoaded && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+      {/* Loading placeholder - only show if we're loading and haven't loaded yet */}
+      {hasStartedLoading && !isLoaded && !hasError && (
+        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+          <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
         </div>
       )}
       
-      {/* Actual image */}
-      {imageSrc && (
+      {/* Image - render when we should start loading */}
+      {hasStartedLoading && (
         <img
+          ref={imageRef}
           src={imageSrc}
           alt={alt}
           onLoad={handleLoad}
           onError={handleError}
-          className={`transition-opacity duration-300 ${
+          className={`transition-opacity duration-200 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           } w-full h-full object-cover`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
           {...props}
         />
+      )}
+      
+      {/* Fallback background for images that haven't started loading */}
+      {!hasStartedLoading && (
+        <div className="absolute inset-0 bg-gray-50" />
       )}
     </div>
   );

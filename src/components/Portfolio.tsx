@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ArrowLeft, Grid, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import CachedImage from './CachedImage';
-import { useImagePreloader } from '@/hooks/useImagePreloader';
-import { useImageCache } from '@/hooks/useImageCache';
 
 interface PortfolioProps {
   title: string;
@@ -24,145 +22,82 @@ const Portfolio: React.FC<PortfolioProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'slideshow'>('grid');
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
 
-  // Preload images with priority
-  const { loadedImages, isLoaded, preloadImage } = useImagePreloader({
-    images,
-    priority: viewMode === 'slideshow' ? 1 : 4,
-    preloadNext: viewMode === 'slideshow' ? 3 : 8
-  });
-
-  // Image cache for manual preloading
-  const { cacheImage } = useImageCache();
-
-  // Preload image on hover with caching
-  const handleImageHover = useCallback(async (imageSrc: string) => {
-    if (hoveredImage === imageSrc) return;
-    
-    setHoveredImage(imageSrc);
-    
-    // Don't preload if already loaded
-    if (loadedImages.has(imageSrc)) return;
-    
-    try {
-      // Use the preloader to load the image
-      await preloadImage(imageSrc);
-      
-      // Also cache it for immediate lightbox usage
-      const response = await fetch(imageSrc);
-      if (response.ok) {
-        const blob = await response.blob();
-        await cacheImage(imageSrc, blob);
+  // Memoize schema generation to avoid recalculation
+  const imageGallerySchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": title,
+    "description": description,
+    "image": images.map((image, index) => ({
+      "@type": "ImageObject",
+      "contentUrl": `https://wiktoriaputzphoto.pl${image}`,
+      "name": `${title} - Zdjęcie ${index + 1}`,
+      "description": `Profesjonalne zdjęcie z galerii: ${title}`,
+      "creator": {
+        "@type": "Person",
+        "name": "Wiktoria Putz"
       }
-    } catch (error) {
-      console.warn('Failed to preload image on hover:', error);
-    }
-  }, [hoveredImage, loadedImages, preloadImage, cacheImage]);
+    }))
+  }), [title, description, images]);
 
-  // Debounced hover handler to avoid excessive preloading
-  const debouncedHover = useCallback(() => {
-    let timeoutId: NodeJS.Timeout;
-    
-    return (imageSrc: string) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        handleImageHover(imageSrc);
-      }, 150); // 150ms delay to avoid preloading on quick mouse movements
-    };
-  }, [handleImageHover]);
-
-  const debouncedHoverHandler = debouncedHover();
-
-  const openLightbox = (image: string) => {
+  const openLightbox = useCallback((image: string) => {
     setSelectedImage(image);
-  };
+  }, []);
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setSelectedImage(null);
-  };
+  }, []);
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (!selectedImage) return;
     const currentIndex = images.indexOf(selectedImage);
     const nextIndex = (currentIndex + 1) % images.length;
-    const nextImg = images[nextIndex];
-    setSelectedImage(nextImg);
-    
-    // Preload the next image in sequence for smooth navigation
-    const followingIndex = (nextIndex + 1) % images.length;
-    if (followingIndex !== currentIndex) {
-      debouncedHoverHandler(images[followingIndex]);
-    }
-  };
+    setSelectedImage(images[nextIndex]);
+  }, [selectedImage, images]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     if (!selectedImage) return;
     const currentIndex = images.indexOf(selectedImage);
     const prevIndex = (currentIndex - 1 + images.length) % images.length;
-    const prevImg = images[prevIndex];
-    setSelectedImage(prevImg);
-    
-    // Preload the previous image in sequence for smooth navigation
-    const precedingIndex = (prevIndex - 1 + images.length) % images.length;
-    if (precedingIndex !== currentIndex) {
-      debouncedHoverHandler(images[precedingIndex]);
-    }
-  };
+    setSelectedImage(images[prevIndex]);
+  }, [selectedImage, images]);
 
-  // Auto-advance slideshow
+  // Auto-advance slideshow with cleanup
   useEffect(() => {
-    if (viewMode === 'slideshow' && images.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentSlideIndex((prev) => (prev + 1) % images.length);
-      }, 3000);
-      return () => clearInterval(interval);
-    }
+    if (viewMode !== 'slideshow' || images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlideIndex((prev) => (prev + 1) % images.length);
+    }, 4000); // Increased interval for better UX
+    
+    return () => clearInterval(interval);
   }, [viewMode, images.length]);
 
-  // Handle keyboard navigation in lightbox
+  // Keyboard navigation
   useEffect(() => {
+    if (!selectedImage) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!selectedImage) return;
-      
       switch (event.key) {
         case 'ArrowLeft':
+          event.preventDefault();
           prevImage();
           break;
         case 'ArrowRight':
+          event.preventDefault();
           nextImage();
           break;
         case 'Escape':
+          event.preventDefault();
           closeLightbox();
           break;
       }
     };
 
-    if (selectedImage) {
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [selectedImage, images]);
-
-  // Generate structured data for image gallery
-  const generateImageGallerySchema = () => {
-    return {
-      "@context": "https://schema.org",
-      "@type": "ImageGallery",
-      "name": title,
-      "description": description,
-      "image": images.map((image, index) => ({
-        "@type": "ImageObject",
-        "contentUrl": `https://wiktoriaputzphoto.pl${image}`,
-        "name": `${title} - Zdjęcie ${index + 1}`,
-        "description": `Profesjonalne zdjęcie z galerii: ${title}`,
-        "creator": {
-          "@type": "Person",
-          "name": "Wiktoria Putz"
-        }
-      }))
-    };
-  };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage, nextImage, prevImage, closeLightbox]);
 
   return (
     <article className="min-h-screen bg-white">
@@ -170,7 +105,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateImageGallerySchema())
+          __html: JSON.stringify(imageGallerySchema)
         }}
       />
 
@@ -235,11 +170,9 @@ const Portfolio: React.FC<PortfolioProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {images.map((image, index) => (
                 <article
-                  key={index}
-                  className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300"
+                  key={`${image}-${index}`}
+                  className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-out" // Dodaj ease-out
                   onClick={() => openLightbox(image)}
-                  onMouseEnter={() => debouncedHoverHandler(image)}
-                  onFocus={() => debouncedHoverHandler(image)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -254,17 +187,14 @@ const Portfolio: React.FC<PortfolioProps> = ({
                     <CachedImage
                       src={image}
                       alt={`${title} - Zdjęcie ${index + 1}`}
-                      className="w-full h-full group-hover:scale-105 transition-transform duration-300"
-                      priority={index < 4}
-                      lazy={index >= 4}
-                      width={400}
-                      height={400}
+                      className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105" // Dodaj ease-out i wydłuż czas
+                      priority={index < 8}
+                      lazy={index >= 8}
+                      width={300}
+                      height={300}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                    {/* Loading indicator for hover preloading */}
-                    {hoveredImage === image && !loadedImages.has(image) && (
-                      <div className="absolute top-2 right-2 w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin bg-black/30 backdrop-blur-sm" />
-                    )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 ease-out" /> {/* Zmniejsz opacity */}
                   </div>
                 </article>
               ))}
@@ -276,8 +206,8 @@ const Portfolio: React.FC<PortfolioProps> = ({
               <div className="aspect-video relative overflow-hidden rounded-lg bg-white shadow-lg">
                 {images.map((image, index) => (
                   <div
-                    key={index}
-                    className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+                    key={`slide-${index}`}
+                    className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${
                       index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
                     }`}
                     aria-hidden={index !== currentSlideIndex}
@@ -294,13 +224,14 @@ const Portfolio: React.FC<PortfolioProps> = ({
                   </div>
                 ))}
               </div>
+              
               {/* Slideshow indicators */}
               <nav aria-label="Nawigacja pokazu slajdów" className="flex justify-center mt-4 gap-2">
                 {images.map((_, index) => (
                   <button
-                    key={index}
+                    key={`indicator-${index}`}
                     onClick={() => setCurrentSlideIndex(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
+                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                       index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300'
                     }`}
                     aria-label={`Przejdź do slajdu ${index + 1}`}
@@ -313,10 +244,10 @@ const Portfolio: React.FC<PortfolioProps> = ({
         )}
       </main>
 
-      {/* Lightbox */}
+      {/* Optimized Lightbox */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 overflow-auto"
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
@@ -329,30 +260,33 @@ const Portfolio: React.FC<PortfolioProps> = ({
             <CachedImage
               src={selectedImage}
               alt={`${title} - Podgląd zdjęcia`}
-              className="max-w-full max-h-full object-contain w-auto h-auto"
+              className="max-w-full max-h-full object-contain"
               style={{ maxWidth: '95vw', maxHeight: '95vh' }}
               priority={true}
               lazy={false}
             />
+            
+            {/* Navigation buttons */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
+              className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors"
               aria-label="Zamknij podgląd"
             >
               ×
             </button>
+            
             {images.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors"
                   aria-label="Poprzednie zdjęcie"
                 >
                   ‹
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 text-2xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors"
                   aria-label="Następne zdjęcie"
                 >
                   ›
