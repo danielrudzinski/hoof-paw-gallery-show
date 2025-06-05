@@ -169,9 +169,9 @@ const Portfolio: React.FC<PortfolioProps> = ({
           <section aria-label="Galeria zdjęć w widoku siatki">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {images.map((image, index) => (
-                <article
+                  <article
                   key={`${image}-${index}`}
-                  className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-out" // Dodaj ease-out
+                  className="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-200 ease-out will-change-transform" // Shorter duration, add will-change
                   onClick={() => openLightbox(image)}
                   role="button"
                   tabIndex={0}
@@ -187,14 +187,14 @@ const Portfolio: React.FC<PortfolioProps> = ({
                     <CachedImage
                       src={image}
                       alt={`${title} - Zdjęcie ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105" // Dodaj ease-out i wydłuż czas
+                      className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
                       priority={index < 8}
                       lazy={index >= 8}
                       width={300}
                       height={300}
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 ease-out" /> {/* Zmniejsz opacity */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 ease-out" />
                   </div>
                 </article>
               ))}

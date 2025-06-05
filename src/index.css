@@ -99,3 +99,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.group:hover img {
+  transform: scale(1.1) translateZ(0);
+}
+
+.transition-transform {
+  transform: translateZ(0); 
+}
